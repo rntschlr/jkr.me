@@ -1,0 +1,11 @@
+node_modules
+dist
+.wrangler
+.dev.vars
+.claude
+*.local
+.DS_Store
+*.webarchive
+*.png
+DEVDASH.html
+FINxCODE.html

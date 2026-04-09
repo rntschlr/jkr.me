@@ -1,16 +1,38 @@
 import { type FormEvent, useCallback, useRef, useState } from "react";
+import { useLanguage } from "@/i18n/LanguageContext";
 
 type FormState = "idle" | "sending" | "success" | "mailto" | "error";
 
+interface ContactResponse {
+  error?: string;
+  fallback?: "mailto";
+  success?: boolean;
+}
+
+const MAX_NAME_LENGTH = 100;
+const MAX_EMAIL_LENGTH = 254;
+const MAX_SUBJECT_LENGTH = 150;
+const MAX_MESSAGE_LENGTH = 5000;
+
 export function Contact() {
   const [state, setState] = useState<FormState>("idle");
+  const [errorMessage, setErrorMessage] = useState("");
   const formRef = useRef<HTMLFormElement>(null);
+  const { t } = useLanguage();
 
   const openMailto = useCallback(
-    (name: string, email: string, message: string) => {
-      const subject = encodeURIComponent(`Contact from ${name}`);
+    (name: string, email: string, subject: string, message: string) => {
+      const subj = encodeURIComponent(subject || `${t.contact.mailtoSubject} ${name}`);
       const body = encodeURIComponent(`${message}\n\nFrom: ${name} (${email})`);
-      window.location.href = `mailto:johnkrentschler@icloud.com?subject=${subject}&body=${body}`;
+      window.location.href = `mailto:johnkrentschler@icloud.com?subject=${subj}&body=${body}`;
+    },
+    [t],
+  );
+
+  const setErrorState = useCallback(
+    (message: string) => {
+      setErrorMessage(message);
+      setState("error");
     },
     [],
   );
@@ -19,50 +41,71 @@ export function Contact() {
     async (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault();
       const form = e.currentTarget;
-      const name = (
-        form.elements.namedItem("name") as HTMLInputElement
-      ).value.trim();
-      const email = (
-        form.elements.namedItem("email") as HTMLInputElement
-      ).value.trim();
-      const message = (
-        form.elements.namedItem("message") as HTMLTextAreaElement
-      ).value.trim();
-      const website = (
-        form.elements.namedItem("website") as HTMLInputElement
-      ).value;
+      const nameInput = form.elements.namedItem("name") as HTMLInputElement;
+      const emailInput = form.elements.namedItem("email") as HTMLInputElement;
+      const subjectInput = form.elements.namedItem("subject") as HTMLInputElement;
+      const messageInput = form.elements.namedItem("message") as HTMLTextAreaElement;
+      const websiteInput = form.elements.namedItem("website") as HTMLInputElement;
+
+      const name = nameInput.value.trim();
+      const email = emailInput.value.trim();
+      const subject = subjectInput.value.trim();
+      const message = messageInput.value.trim();
+      const website = websiteInput.value;
 
       if (!name || !email || !message) {
-        setState("error");
+        setErrorState(t.contact.errRequired);
+        return;
+      }
+
+      if (!emailInput.validity.valid) {
+        setErrorState(t.contact.errEmail);
+        return;
+      }
+
+      if (
+        name.length > MAX_NAME_LENGTH ||
+        email.length > MAX_EMAIL_LENGTH ||
+        subject.length > MAX_SUBJECT_LENGTH ||
+        message.length > MAX_MESSAGE_LENGTH
+      ) {
+        setErrorState(t.contact.errLength);
         return;
       }
 
       setState("sending");
+      setErrorMessage("");
 
       try {
         const res = await fetch("/api/contact", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ name, email, message, website }),
+          body: JSON.stringify({ name, email, subject, message, website }),
         });
+        const data = (await res.json().catch(() => null)) as ContactResponse | null;
 
         if (res.ok) {
           setState("success");
           formRef.current?.reset();
-        } else {
-          // Server couldn't deliver — open email client as fallback
-          openMailto(name, email, message);
+          return;
+        }
+
+        if (data?.fallback === "mailto") {
+          openMailto(name, email, subject, message);
           setState("mailto");
           formRef.current?.reset();
+          return;
         }
+
+        setErrorState(data?.error ?? t.contact.errGeneric);
       } catch {
         // Network error — open email client as fallback
-        openMailto(name, email, message);
+        openMailto(name, email, subject, message);
         setState("mailto");
         formRef.current?.reset();
       }
     },
-    [openMailto],
+    [openMailto, setErrorState, t],
   );
 
   return (
@@ -73,19 +116,16 @@ export function Contact() {
     >
       <div className="container">
         <div className="section-header reveal">
-          <div className="section-label">Connect</div>
+          <div className="section-label">{t.contact.label}</div>
           <h2 id="contact-heading" className="section-title">
-            Get in Touch
+            {t.contact.heading}
           </h2>
-          <p className="section-desc">
-            Open to opportunities and interesting conversations. Let&rsquo;s
-            build something together.
-          </p>
+          <p className="section-desc">{t.contact.desc}</p>
         </div>
 
         <div className="contact-grid">
           <div className="contact-info reveal">
-            <h3>Contact Details</h3>
+            <h3>{t.contact.detailsHeading}</h3>
 
             <div className="contact-detail">
               <div className="contact-detail-icon">
@@ -100,7 +140,7 @@ export function Contact() {
                 </svg>
               </div>
               <div>
-                <div className="contact-detail-label">Email</div>
+                <div className="contact-detail-label">{t.contact.emailLabel}</div>
                 <div className="contact-detail-value">
                   <a href="mailto:johnkrentschler@icloud.com">
                     johnkrentschler@icloud.com
@@ -121,7 +161,7 @@ export function Contact() {
                 </svg>
               </div>
               <div>
-                <div className="contact-detail-label">GitHub</div>
+                <div className="contact-detail-label">{t.contact.githubLabel}</div>
                 <div className="contact-detail-value">
                   <a
                     href="https://github.com/rntschlr"
@@ -147,20 +187,14 @@ export function Contact() {
                 </svg>
               </div>
               <div>
-                <div className="contact-detail-label">Location</div>
-                <div className="contact-detail-value">
-                  United States &rarr; Hungary
-                </div>
+                <div className="contact-detail-label">{t.contact.locationLabel}</div>
+                <div className="contact-detail-value">{t.contact.locationValue}</div>
               </div>
             </div>
 
             <div className="contact-availability">
-              <h4>Availability</h4>
-              <p>
-                Currently relocating to Hungary via family reunification visa.
-                Open to remote work and European opportunities. Interested in
-                frontend development, fintech, and product engineering roles.
-              </p>
+              <h4>{t.contact.availabilityHeading}</h4>
+              <p>{t.contact.availabilityDesc}</p>
             </div>
           </div>
 
@@ -171,68 +205,80 @@ export function Contact() {
             noValidate
           >
             <div className="form-group">
-              <label htmlFor="name">Name</label>
+              <label htmlFor="name">{t.contact.labelName}</label>
               <input
                 type="text"
                 id="name"
                 name="name"
                 required
                 autoComplete="name"
-                placeholder="Your name"
+                maxLength={MAX_NAME_LENGTH}
+                placeholder={t.contact.placeholderName}
               />
             </div>
             <div className="form-group">
-              <label htmlFor="email">Email</label>
+              <label htmlFor="email">{t.contact.labelEmail}</label>
               <input
                 type="email"
                 id="email"
                 name="email"
                 required
                 autoComplete="email"
-                placeholder="you@example.com"
+                inputMode="email"
+                maxLength={MAX_EMAIL_LENGTH}
+                placeholder={t.contact.placeholderEmail}
               />
             </div>
-            {/* Honeypot — hidden from humans, bots fill it and get rejected */}
-            <div aria-hidden="true" style={{ position: "absolute", left: "-9999px" }}>
-              <label htmlFor="website">Website</label>
+            <div className="form-group">
+              <label htmlFor="subject">{t.contact.labelSubject}</label>
               <input
                 type="text"
-                id="website"
+                id="subject"
+                name="subject"
+                maxLength={MAX_SUBJECT_LENGTH}
+                placeholder={t.contact.placeholderSubject}
+              />
+            </div>
+            {/* Honeypot — fully hidden from humans and AT, bots fill it and get rejected */}
+            <div style={{ display: "none" }} aria-hidden="true">
+              <label>Website</label>
+              <input
+                type="text"
                 name="website"
                 tabIndex={-1}
                 autoComplete="off"
               />
             </div>
             <div className="form-group">
-              <label htmlFor="message">Message</label>
+              <label htmlFor="message">{t.contact.labelMessage}</label>
               <textarea
                 id="message"
                 name="message"
                 required
-                placeholder="Tell me about your project or opportunity..."
+                maxLength={MAX_MESSAGE_LENGTH}
+                placeholder={t.contact.placeholderMessage}
               />
             </div>
 
             {state === "success" && (
-              <div className="form-status success visible">
-                Message sent! I&rsquo;ll get back to you soon.
+              <div className="form-status success visible" role="status" aria-live="polite">
+                {t.contact.successMsg}
               </div>
             )}
             {state === "mailto" && (
-              <div className="form-status success visible">
-                Your email client should open with the message. If it
-                didn&rsquo;t, email me directly at{" "}
+              <div className="form-status success visible" role="status" aria-live="polite">
+                {t.contact.mailtoMsg}{" "}
                 <a
                   href="mailto:johnkrentschler@icloud.com"
-                  style={{ color: "inherit", textDecoration: "underline" }}
+                  className="contact-inline-link"
                 >
                   johnkrentschler@icloud.com
                 </a>
               </div>
             )}
             {state === "error" && (
-              <div className="form-status error visible">
-                Please fill in all fields.
+              <div className="form-status error visible" role="alert">
+                {errorMessage}
               </div>
             )}
 
@@ -241,7 +287,7 @@ export function Contact() {
               className="form-submit"
               disabled={state === "sending"}
             >
-              {state === "sending" ? "Sending..." : "Send Message"}
+              {state === "sending" ? t.contact.submitting : t.contact.submit}
             </button>
           </form>
         </div>

@@ -1,0 +1,11 @@
+# Cloudflare Pages Functions — local development secrets
+# Copy this file to .dev.vars and fill in your values.
+# .dev.vars is gitignored and should never be committed.
+#
+# In production, set these in the Cloudflare Pages dashboard:
+# Settings → Environment variables
+
+# Resend API key for the contact form email delivery.
+# Get one at https://resend.com/api-keys
+# If omitted, the contact form will fall back to a mailto: link.
+RESEND_API_KEY=re_your_api_key_here

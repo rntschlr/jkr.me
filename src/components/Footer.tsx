@@ -1,4 +1,8 @@
+import { useLanguage } from "@/i18n/LanguageContext";
+
 export function Footer() {
+  const { t } = useLanguage();
+
   return (
     <footer className="footer">
       <div className="container">
@@ -20,12 +24,12 @@ export function Footer() {
               </a>
             </li>
             <li>
-              <a href="#home">Back to Top</a>
+              <a href="#home">{t.footer.backToTop}</a>
             </li>
           </ul>
         </div>
         <div className="footer-copy">
-          &copy; {new Date().getFullYear()} Jack Rentschler. Built with care.
+          &copy; {new Date().getFullYear()} Jack Rentschler. {t.footer.builtWith}
         </div>
       </div>
     </footer>

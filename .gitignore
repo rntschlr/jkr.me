@@ -1,11 +1,29 @@
+# Dependencies
 node_modules
+
+# Build output
 dist
 .wrangler
+
+# Environment / secrets
 .dev.vars
-.claude
 *.local
+
+# OS
 .DS_Store
+
+# Project-specific junk
 *.webarchive
 *.png
+*.jpeg
+*.md
+!README.md
 DEVDASH.html
 FINxCODE.html
+*.html
+!index.html
+
+# Editor
+.claude
+.vscode
+.idea

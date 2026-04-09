@@ -8,11 +8,13 @@ export function useActiveSection() {
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
+        let best: IntersectionObserverEntry | null = null;
         for (const entry of entries) {
-          if (entry.isIntersecting) {
-            setActive(entry.target.id);
+          if (entry.isIntersecting && (!best || entry.intersectionRatio > best.intersectionRatio)) {
+            best = entry;
           }
         }
+        if (best) setActive(best.target.id);
       },
       { rootMargin: "-20% 0px -60% 0px" },
     );

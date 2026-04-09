@@ -9,16 +9,21 @@ export function useTypingEffect(phrases: string[]) {
     window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   useEffect(() => {
+    state.current = { phraseIdx: 0, charIdx: 0, deleting: false };
+    setDisplay("");
     if (prefersReduced || phrases.length === 0) return;
 
     let timer: ReturnType<typeof setTimeout>;
+    let cancelled = false;
 
     function tick() {
+      if (cancelled) return;
       const { phraseIdx, charIdx, deleting } = state.current;
       const phrase = phrases[phraseIdx]!;
 
       if (!deleting && charIdx === phrase.length) {
         timer = setTimeout(() => {
+          if (cancelled) return;
           state.current.deleting = true;
           tick();
         }, 2000);
@@ -39,7 +44,10 @@ export function useTypingEffect(phrases: string[]) {
     }
 
     tick();
-    return () => clearTimeout(timer);
+    return () => {
+      cancelled = true;
+      clearTimeout(timer);
+    };
   }, [phrases, prefersReduced]);
 
   if (prefersReduced) return phrases[0] ?? "";

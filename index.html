@@ -8,9 +8,12 @@
     <meta name="keywords" content="Jack Rentschler, web developer, finance, computer science, React, TypeScript, portfolio, full-stack, Hungary" />
     <meta name="author" content="Jack Rentschler" />
     <meta name="theme-color" content="#0a0a0f" />
+    <meta name="color-scheme" content="dark light" />
 
     <link rel="canonical" href="https://johnkrentschler.me/" />
+    <link rel="manifest" href="/manifest.json" />
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⌘</text></svg>" />
+    <script src="/theme-init.js"></script>
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
@@ -39,29 +42,11 @@
     }
     </script>
 
-    <!-- Prevent theme flash: set data-theme before first paint -->
-    <script>
-      (function() {
-        var saved = localStorage.getItem('theme');
-        if (saved === 'dark' || saved === 'light') {
-          document.documentElement.dataset.theme = saved;
-        } else if (window.matchMedia('(prefers-color-scheme: light)').matches) {
-          document.documentElement.dataset.theme = 'light';
-        }
-      })();
-    </script>
-
     <!-- Open Graph Image -->
     <meta property="og:image" content="https://johnkrentschler.me/profile.jpg" />
 
     <!-- Twitter Image -->
     <meta name="twitter:image" content="https://johnkrentschler.me/profile.jpg" />
-
-    <!-- Fonts (non-render-blocking) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Sora:wght@300;400;500;600;700&display=swap" />
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Sora:wght@300;400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
 
     <title>Jack Rentschler — Finance × Code</title>
   </head>

@@ -1,36 +1,28 @@
-const projects = [
+import { useLanguage } from "@/i18n/LanguageContext";
+
+const PROJECT_META: Array<{
+  img: string;
+  tags: string[];
+}> = [
   {
-    img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=600&h=300&q=80",
-    alt: "Financial dashboard interface",
-    tags: ["React", "TypeScript", "API"],
-    title: "Portfolio Analytics Dashboard",
-    desc: "Real-time financial data visualization with customizable charts, watchlists, and portfolio tracking.",
+    img: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=600&h=300&q=80",
+    tags: ["React 19", "CSS3", "localStorage"],
   },
   {
-    img: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=600&h=300&q=80",
-    alt: "Code editor showing clean code",
-    tags: ["Node.js", "Express", "Auth"],
-    title: "REST API Template",
-    desc: "Production-ready API boilerplate with authentication, rate limiting, and comprehensive documentation.",
+    img: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=600&h=300&q=80",
+    tags: ["Python", "REST APIs", "CLI"],
   },
   {
-    img: "https://images.unsplash.com/photo-1618044619888-009e412ff12a?auto=format&fit=crop&w=600&h=300&q=80",
-    alt: "Terminal with automation scripts",
-    tags: ["Bash", "macOS", "Automation"],
-    title: "macOS Backup Automation",
-    desc: "Command-line script that builds time-stamped backups, copies key folders, and exports user data reliably.",
-  },
-  {
-    img: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=600&h=300&q=80",
-    alt: "Documentation workspace",
-    tags: ["Documentation", "Troubleshooting"],
-    title: "IT Support Playbook",
-    desc: "A growing set of troubleshooting guides for common issues with clear triage steps and escalation notes.",
-    status: "In Progress",
+    img: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=600&h=300&q=80",
+    tags: ["React 19", "TypeScript", "Vite", "Tailwind"],
   },
 ];
 
 export function Projects() {
+  const { t } = useLanguage();
+
+  const visible = PROJECT_META.map((meta, i) => ({ meta, item: t.projects.items[i]! }));
+
   return (
     <section
       className="section section-alt"
@@ -39,22 +31,19 @@ export function Projects() {
     >
       <div className="container">
         <div className="section-header reveal">
-          <div className="section-label">Portfolio</div>
+          <div className="section-label">{t.projects.label}</div>
           <h2 id="projects-heading" className="section-title">
-            Featured Projects
+            {t.projects.heading}
           </h2>
-          <p className="section-desc">
-            Selected work demonstrating technical problem-solving and attention
-            to craft.
-          </p>
+          <p className="section-desc">{t.projects.desc}</p>
         </div>
 
         <div className="projects-grid stagger-children reveal">
-          {projects.map((project) => (
-            <article key={project.title} className="project-card">
+          {visible.map(({ meta, item }, i) => (
+            <article key={i} className="project-card">
               <img
-                src={project.img}
-                alt={project.alt}
+                src={meta.img}
+                alt={item.alt}
                 className="project-img"
                 loading="lazy"
                 width={600}
@@ -62,17 +51,14 @@ export function Projects() {
               />
               <div className="project-body">
                 <div className="project-meta">
-                  {project.tags.map((tag) => (
+                  {meta.tags.map((tag) => (
                     <span key={tag} className="project-tag">
                       {tag}
                     </span>
                   ))}
-                  {project.status && (
-                    <span className="project-status">{project.status}</span>
-                  )}
                 </div>
-                <h3 className="project-title">{project.title}</h3>
-                <p className="project-desc">{project.desc}</p>
+                <h3 className="project-title">{item.title}</h3>
+                <p className="project-desc">{item.desc}</p>
               </div>
             </article>
           ))}
@@ -84,7 +70,7 @@ export function Projects() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            View GitHub Profile
+            {t.projects.viewGithub}
             <svg
               width="20"
               height="20"

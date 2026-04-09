@@ -1,15 +1,9 @@
 import { useTypingEffect } from "@/hooks/useTypingEffect";
-
-const phrases = [
-  "Finance \u00d7 Code",
-  "Full-Stack Developer",
-  "Building for the web",
-  "React & TypeScript",
-  "Data-driven design",
-];
+import { useLanguage } from "@/i18n/LanguageContext";
 
 export function Hero() {
-  const typingText = useTypingEffect(phrases);
+  const { t } = useLanguage();
+  const typingText = useTypingEffect(t.hero.phrases);
 
   return (
     <section className="hero" id="home">
@@ -17,7 +11,7 @@ export function Hero() {
         <div className="hero-content">
           <div className="hero-terminal reveal">
             <span className="hero-terminal-dot" />
-            <span>Open to opportunities</span>
+            <span>{t.hero.badge}</span>
           </div>
 
           <h1 className="hero-name reveal reveal-delay-1">
@@ -31,11 +25,7 @@ export function Hero() {
             <span className="typing-cursor" />
           </p>
 
-          <p className="hero-desc reveal reveal-delay-3">
-            Building at the intersection of finance and technology. I craft
-            clean, performant web experiences with modern tooling and a focus on
-            user-centered design.
-          </p>
+          <p className="hero-desc reveal reveal-delay-3">{t.hero.desc}</p>
 
           <div className="hero-actions reveal reveal-delay-4">
             <a href="#contact" className="btn btn-primary">
@@ -48,7 +38,7 @@ export function Hero() {
                 <path d="m22 2-7 20-4-9-9-4 20-7z" />
                 <path d="M22 2 11 13" />
               </svg>
-              Get in Touch
+              {t.hero.cta}
             </a>
             <a href="#projects" className="btn btn-secondary">
               <svg
@@ -60,7 +50,7 @@ export function Hero() {
                 <polyline points="16 18 22 12 16 6" />
                 <polyline points="8 6 2 12 8 18" />
               </svg>
-              View Projects
+              {t.hero.viewProjects}
             </a>
           </div>
         </div>
@@ -71,66 +61,14 @@ export function Hero() {
           fill="none"
           aria-hidden="true"
         >
-          <circle
-            cx="200"
-            cy="200"
-            r="180"
-            stroke="currentColor"
-            strokeWidth="0.5"
-          />
-          <circle
-            cx="200"
-            cy="200"
-            r="140"
-            stroke="currentColor"
-            strokeWidth="0.5"
-          />
-          <circle
-            cx="200"
-            cy="200"
-            r="100"
-            stroke="currentColor"
-            strokeWidth="0.5"
-          />
-          <circle
-            cx="200"
-            cy="200"
-            r="60"
-            stroke="currentColor"
-            strokeWidth="0.5"
-          />
-          <line
-            x1="20"
-            y1="200"
-            x2="380"
-            y2="200"
-            stroke="currentColor"
-            strokeWidth="0.5"
-          />
-          <line
-            x1="200"
-            y1="20"
-            x2="200"
-            y2="380"
-            stroke="currentColor"
-            strokeWidth="0.5"
-          />
-          <line
-            x1="60"
-            y1="60"
-            x2="340"
-            y2="340"
-            stroke="currentColor"
-            strokeWidth="0.5"
-          />
-          <line
-            x1="340"
-            y1="60"
-            x2="60"
-            y2="340"
-            stroke="currentColor"
-            strokeWidth="0.5"
-          />
+          <circle cx="200" cy="200" r="180" stroke="currentColor" strokeWidth="0.5" />
+          <circle cx="200" cy="200" r="140" stroke="currentColor" strokeWidth="0.5" />
+          <circle cx="200" cy="200" r="100" stroke="currentColor" strokeWidth="0.5" />
+          <circle cx="200" cy="200" r="60" stroke="currentColor" strokeWidth="0.5" />
+          <line x1="20" y1="200" x2="380" y2="200" stroke="currentColor" strokeWidth="0.5" />
+          <line x1="200" y1="20" x2="200" y2="380" stroke="currentColor" strokeWidth="0.5" />
+          <line x1="60" y1="60" x2="340" y2="340" stroke="currentColor" strokeWidth="0.5" />
+          <line x1="340" y1="60" x2="60" y2="340" stroke="currentColor" strokeWidth="0.5" />
         </svg>
       </div>
     </section>

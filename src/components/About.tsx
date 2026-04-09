@@ -1,11 +1,15 @@
+import { useLanguage } from "@/i18n/LanguageContext";
+
 export function About() {
+  const { t } = useLanguage();
+
   return (
     <section className="section" id="about" aria-labelledby="about-heading">
       <div className="container">
         <div className="section-header reveal">
-          <div className="section-label">Background</div>
+          <div className="section-label">{t.about.label}</div>
           <h2 id="about-heading" className="section-title">
-            About Me
+            {t.about.heading}
           </h2>
         </div>
 
@@ -22,33 +26,22 @@ export function About() {
           </div>
 
           <div className="about-content reveal reveal-delay-1">
-            <h3>Finance background meets code.</h3>
-            <p>
-              My path started in finance&mdash;analyzing markets, building
-              spreadsheet models, and understanding how data drives decisions.
-              That analytical foundation now shapes how I approach software
-              development: methodically, with attention to edge cases and
-              performance.
-            </p>
-            <p>
-              Today I build web applications that feel fast and intuitive. I care
-              about clean code, accessible interfaces, and shipping products that
-              solve real problems. Currently relocating to Hungary and open to
-              remote opportunities across Europe.
-            </p>
+            <h3>{t.about.h3}</h3>
+            <p>{t.about.p1}</p>
+            <p>{t.about.p2}</p>
 
             <div className="about-stats">
               <div>
                 <div className="about-stat-value">5+</div>
-                <div className="about-stat-label">Years in Finance</div>
+                <div className="about-stat-label">{t.about.statFinance}</div>
               </div>
               <div>
                 <div className="about-stat-value">3+</div>
-                <div className="about-stat-label">Years Building</div>
+                <div className="about-stat-label">{t.about.statBuilding}</div>
               </div>
               <div>
                 <div className="about-stat-value">&infin;</div>
-                <div className="about-stat-label">Curiosity</div>
+                <div className="about-stat-label">{t.about.statCuriosity}</div>
               </div>
             </div>
           </div>

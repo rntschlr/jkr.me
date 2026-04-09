@@ -1,15 +1,20 @@
 import { useCallback, useState } from "react";
 import { useActiveSection } from "@/hooks/useActiveSection";
 import { useScrolledNav } from "@/hooks/useScrolledNav";
+import { useLanguage } from "@/i18n/LanguageContext";
 
 interface NavigationProps {
   onToggleTheme: () => void;
 }
 
+const NAV_SECTIONS = ["skills", "projects", "about", "contact"] as const;
+type NavSection = (typeof NAV_SECTIONS)[number];
+
 export function Navigation({ onToggleTheme }: NavigationProps) {
   const scrolled = useScrolledNav();
   const active = useActiveSection();
   const [menuOpen, setMenuOpen] = useState(false);
+  const { locale, toggle: toggleLanguage, t } = useLanguage();
 
   const closeMenu = useCallback(() => setMenuOpen(false), []);
 
@@ -25,20 +30,29 @@ export function Navigation({ onToggleTheme }: NavigationProps) {
         </a>
 
         <ul className={`nav-links${menuOpen ? " open" : ""}`} id="navLinks">
-          {(["skills", "projects", "about", "contact"] as const).map((id) => (
+          {NAV_SECTIONS.map((id: NavSection) => (
             <li key={id}>
               <a
                 href={`#${id}`}
                 className={active === id ? "nav-active" : ""}
                 onClick={closeMenu}
               >
-                {id.charAt(0).toUpperCase() + id.slice(1)}
+                {t.nav[id]}
               </a>
             </li>
           ))}
         </ul>
 
         <div className="nav-actions">
+          <button
+            type="button"
+            className="lang-toggle"
+            onClick={toggleLanguage}
+            aria-label={locale === "en" ? "Switch to Hungarian" : "Switch to English"}
+          >
+            {locale === "en" ? "\uD83C\uDDED\uD83C\uDDFA" : "\uD83C\uDDFA\uD83C\uDDF8"}
+          </button>
+
           <button
             type="button"
             className="theme-toggle"

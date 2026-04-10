@@ -98,7 +98,7 @@ body {
   background: var(--bg-primary);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow-x: hidden;
+  overflow-x: clip;
   transition: background-color 0.4s ease, color 0.4s ease;
 }
 
@@ -195,6 +195,12 @@ button { font: inherit; cursor: pointer; border: none; background: none; }
     linear-gradient(var(--accent) 1px, transparent 1px),
     linear-gradient(90deg, var(--accent) 1px, transparent 1px);
   background-size: 60px 60px;
+}
+
+@media (max-width: 768px) {
+  .grid-bg {
+    display: none;
+  }
 }
 
 /* ========================================
@@ -385,11 +391,17 @@ button { font: inherit; cursor: pointer; border: none; background: none; }
    ======================================== */
 .hero {
   min-height: 100vh;
+  min-height: 100dvh;
   display: flex;
   align-items: center;
   padding-top: 6rem;
   position: relative;
-  overflow: hidden;
+}
+
+@media (min-width: 901px) {
+  .hero {
+    overflow: hidden;
+  }
 }
 
 .hero-content {

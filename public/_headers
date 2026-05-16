@@ -1,7 +1,8 @@
 /*
-  Content-Security-Policy: default-src 'self'; base-uri 'self'; connect-src 'self'; font-src 'self' data:; form-action 'self' mailto:; frame-ancestors 'none'; img-src 'self' data: https://images.unsplash.com; manifest-src 'self'; object-src 'none'; script-src 'self' 'sha256-1E9M9vfZSVsgWXfCAcRZkE1k3Ph2vA4R1EiYFW/Blto='; style-src 'self'
+  Content-Security-Policy: default-src 'self'; base-uri 'self'; connect-src 'self' https://cloudflareinsights.com; font-src 'self' data:; form-action 'self' mailto:; frame-ancestors 'none'; img-src 'self' data: https://images.unsplash.com; manifest-src 'self'; object-src 'none'; script-src 'self' https://static.cloudflareinsights.com 'sha256-1E9M9vfZSVsgWXfCAcRZkE1k3Ph2vA4R1EiYFW/Blto='; style-src 'self'
   X-Content-Type-Options: nosniff
   X-Frame-Options: DENY
+  X-XSS-Protection: 0
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: camera=(), microphone=(), geolocation=()
   Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
@@ -16,4 +17,13 @@
   Cache-Control: public, max-age=86400
 
 /sitemap.xml
+  Cache-Control: public, max-age=86400
+
+/.well-known/*
+  Cache-Control: public, max-age=86400
+
+/og-image.png
+  Cache-Control: public, max-age=86400
+
+/icons/*
   Cache-Control: public, max-age=86400

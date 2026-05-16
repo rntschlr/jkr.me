@@ -15,6 +15,7 @@ dist
 # Project-specific junk
 *.webarchive
 *.png
+!public/**/*.png
 *.jpeg
 *.md
 !README.md

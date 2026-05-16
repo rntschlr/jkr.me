@@ -6,13 +6,13 @@ Personal portfolio site for John Rentschler — developer, fintech, and networke
 
 ## Stack
 
-| Layer | Tech |
-|---|---|
-| Frontend | React 19, TypeScript 5.7, Vite 6 |
-| Styling | Tailwind CSS 3, custom CSS variables |
-| API | Cloudflare Pages Functions |
-| Email | [Resend](https://resend.com) |
-| Hosting | Cloudflare Pages |
+| Layer    | Tech                                 |
+| -------- | ------------------------------------ |
+| Frontend | React 19, TypeScript 5.7, Vite 6     |
+| Styling  | Tailwind CSS 3, custom CSS variables |
+| API      | Cloudflare Pages Functions           |
+| Email    | [Resend](https://resend.com)         |
+| Hosting  | Cloudflare Pages                     |
 
 ## Local Development
 
@@ -55,15 +55,15 @@ npx wrangler pages dev dist --compatibility-date=2024-12-01
 
 ## Scripts
 
-| Command | Description |
-|---|---|
-| `npm run dev` | Start Vite dev server |
-| `npm run build` | Type-check + production build |
-| `npm run preview` | Preview production build locally |
-| `npm run typecheck` | TypeScript type-check only |
-| `npm run lint` | Lint with ESLint |
-| `npm run lint:fix` | Lint and auto-fix |
-| `npm run format` | Format with Prettier |
+| Command                | Description                      |
+| ---------------------- | -------------------------------- |
+| `npm run dev`          | Start Vite dev server            |
+| `npm run build`        | Type-check + production build    |
+| `npm run preview`      | Preview production build locally |
+| `npm run typecheck`    | TypeScript type-check only       |
+| `npm run lint`         | Lint with ESLint                 |
+| `npm run lint:fix`     | Lint and auto-fix                |
+| `npm run format`       | Format with Prettier             |
 | `npm run format:check` | Check formatting without writing |
 
 ## Project Structure
@@ -98,7 +98,7 @@ The site deploys automatically to Cloudflare Pages on every push to `main` via G
 
 ```bash
 npm run build
-npx wrangler pages deploy dist
+npx wrangler pages deploy dist --project-name=personalportfolio
 ```
 
 ### Cloudflare Pages Secrets

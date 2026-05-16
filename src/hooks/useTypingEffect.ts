@@ -5,8 +5,7 @@ export function useTypingEffect(phrases: string[]) {
   const state = useRef({ phraseIdx: 0, charIdx: 0, deleting: false });
 
   const prefersReduced =
-    typeof window !== "undefined" &&
-    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   useEffect(() => {
     state.current = { phraseIdx: 0, charIdx: 0, deleting: false };

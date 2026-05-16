@@ -1,5 +1,5 @@
 import { useTypingEffect } from "@/hooks/useTypingEffect";
-import { useLanguage } from "@/i18n/LanguageContext";
+import { useLanguage } from "@/i18n/useLanguage";
 
 export function Hero() {
   const { t } = useLanguage();
@@ -29,24 +29,14 @@ export function Hero() {
 
           <div className="hero-actions reveal reveal-delay-4">
             <a href="#contact" className="btn btn-primary">
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-              >
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <path d="m22 2-7 20-4-9-9-4 20-7z" />
                 <path d="M22 2 11 13" />
               </svg>
               {t.hero.cta}
             </a>
             <a href="#projects" className="btn btn-secondary">
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-              >
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <polyline points="16 18 22 12 16 6" />
                 <polyline points="8 6 2 12 8 18" />
               </svg>
@@ -55,12 +45,7 @@ export function Hero() {
           </div>
         </div>
 
-        <svg
-          className="hero-decoration"
-          viewBox="0 0 400 400"
-          fill="none"
-          aria-hidden="true"
-        >
+        <svg className="hero-decoration" viewBox="0 0 400 400" fill="none" aria-hidden="true">
           <circle cx="200" cy="200" r="180" stroke="currentColor" strokeWidth="0.5" />
           <circle cx="200" cy="200" r="140" stroke="currentColor" strokeWidth="0.5" />
           <circle cx="200" cy="200" r="100" stroke="currentColor" strokeWidth="0.5" />

@@ -1,7 +1,7 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useActiveSection } from "@/hooks/useActiveSection";
 import { useScrolledNav } from "@/hooks/useScrolledNav";
-import { useLanguage } from "@/i18n/LanguageContext";
+import { useLanguage } from "@/i18n/useLanguage";
 
 interface NavigationProps {
   onToggleTheme: () => void;
@@ -15,11 +15,45 @@ export function Navigation({ onToggleTheme }: NavigationProps) {
   const active = useActiveSection();
   const [menuOpen, setMenuOpen] = useState(false);
   const { locale, toggle: toggleLanguage, t } = useLanguage();
+  const navRef = useRef<HTMLElement>(null);
 
   const closeMenu = useCallback(() => setMenuOpen(false), []);
 
+  useEffect(() => {
+    if (!menuOpen) return;
+
+    const nav = navRef.current;
+    if (!nav) return;
+
+    const els = Array.from(nav.querySelectorAll<HTMLElement>("a[href], button:not([disabled])"));
+    if (els.length === 0) return;
+
+    const first = els[0]!;
+    const last = els[els.length - 1]!;
+
+    function handleKeyDown(e: KeyboardEvent) {
+      if (e.key === "Escape") {
+        setMenuOpen(false);
+        return;
+      }
+      if (e.key !== "Tab") return;
+
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    }
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [menuOpen]);
+
   return (
     <nav
+      ref={navRef}
       className={`nav${scrolled ? " scrolled" : ""}`}
       id="navbar"
       aria-label="Main navigation"
@@ -32,11 +66,7 @@ export function Navigation({ onToggleTheme }: NavigationProps) {
         <ul className={`nav-links${menuOpen ? " open" : ""}`} id="navLinks">
           {NAV_SECTIONS.map((id: NavSection) => (
             <li key={id}>
-              <a
-                href={`#${id}`}
-                className={active === id ? "nav-active" : ""}
-                onClick={closeMenu}
-              >
+              <a href={`#${id}`} className={active === id ? "nav-active" : ""} onClick={closeMenu}>
                 {t.nav[id]}
               </a>
             </li>

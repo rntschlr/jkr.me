@@ -116,6 +116,17 @@ The contact form at `/api/contact` is a Cloudflare Pages Function that:
 - Sends email via [Resend](https://resend.com) if `RESEND_API_KEY` is set
 - Returns a `501` with `"fallback": "mailto"` if the key is absent — the frontend handles this gracefully
 
+## Rate Limiting
+
+Production rate limiting is configured at the Cloudflare dashboard level
+(**Security → Rate limiting rules**) on path `/api/contact`. Recommended
+settings: **10 req/min/IP**, action **Block**.
+
+The in-code per-isolate throttle in `functions/api/contact.ts` is a
+defense-in-depth supplement, not a replacement. It only persists for the
+lifetime of a single Cloudflare Worker isolate and provides no
+cross-isolate protection; the dashboard rule is the authoritative gate.
+
 ## License
 
 MIT

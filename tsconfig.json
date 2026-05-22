@@ -16,11 +16,12 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     "noUncheckedIndexedAccess": true,
+    "types": ["@cloudflare/workers-types"],
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
     }
   },
-  "include": ["src"],
-  "exclude": ["node_modules", "dist", "functions"]
+  "include": ["src", "functions"],
+  "exclude": ["node_modules", "dist"]
 }

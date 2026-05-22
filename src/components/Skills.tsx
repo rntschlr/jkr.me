@@ -1,4 +1,4 @@
-import { useLanguage } from "@/i18n/LanguageContext";
+import { useLanguage } from "@/i18n/useLanguage";
 
 // Icons and tags are tech terms — they stay language-neutral.
 // Titles and descriptions are pulled from translations.

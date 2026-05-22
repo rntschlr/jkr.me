@@ -1,5 +1,6 @@
 import { type FormEvent, useCallback, useRef, useState } from "react";
-import { useLanguage } from "@/i18n/LanguageContext";
+import { useLanguage } from "@/i18n/useLanguage";
+import { GitHubIcon } from "./icons";
 
 type FormState = "idle" | "sending" | "success" | "mailto" | "error";
 
@@ -29,13 +30,10 @@ export function Contact() {
     [t],
   );
 
-  const setErrorState = useCallback(
-    (message: string) => {
-      setErrorMessage(message);
-      setState("error");
-    },
-    [],
-  );
+  const setErrorState = useCallback((message: string) => {
+    setErrorMessage(message);
+    setState("error");
+  }, []);
 
   const handleSubmit = useCallback(
     async (e: FormEvent<HTMLFormElement>) => {
@@ -109,11 +107,7 @@ export function Contact() {
   );
 
   return (
-    <section
-      className="section section-alt"
-      id="contact"
-      aria-labelledby="contact-heading"
-    >
+    <section className="section section-alt" id="contact" aria-labelledby="contact-heading">
       <div className="container">
         <div className="section-header reveal">
           <div className="section-label">{t.contact.label}</div>
@@ -129,12 +123,7 @@ export function Contact() {
 
             <div className="contact-detail">
               <div className="contact-detail-icon">
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                >
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                   <rect x="2" y="4" width="20" height="16" rx="2" />
                   <path d="m2 4 10 8 10-8" />
                 </svg>
@@ -142,32 +131,19 @@ export function Contact() {
               <div>
                 <div className="contact-detail-label">{t.contact.emailLabel}</div>
                 <div className="contact-detail-value">
-                  <a href="mailto:johnkrentschler@icloud.com">
-                    johnkrentschler@icloud.com
-                  </a>
+                  <a href="mailto:johnkrentschler@icloud.com">johnkrentschler@icloud.com</a>
                 </div>
               </div>
             </div>
 
             <div className="contact-detail">
               <div className="contact-detail-icon">
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                >
-                  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
-                </svg>
+                <GitHubIcon />
               </div>
               <div>
                 <div className="contact-detail-label">{t.contact.githubLabel}</div>
                 <div className="contact-detail-value">
-                  <a
-                    href="https://github.com/rntschlr"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
+                  <a href="https://github.com/rntschlr" target="_blank" rel="noopener noreferrer">
                     @rntschlr
                   </a>
                 </div>
@@ -176,12 +152,7 @@ export function Contact() {
 
             <div className="contact-detail">
               <div className="contact-detail-icon">
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                >
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                   <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
                   <circle cx="12" cy="10" r="3" />
                 </svg>
@@ -242,12 +213,7 @@ export function Contact() {
             {/* Honeypot — fully hidden from humans and AT, bots fill it and get rejected */}
             <div style={{ display: "none" }} aria-hidden="true">
               <label>Website</label>
-              <input
-                type="text"
-                name="website"
-                tabIndex={-1}
-                autoComplete="off"
-              />
+              <input type="text" name="website" tabIndex={-1} autoComplete="off" />
             </div>
             <div className="form-group">
               <label htmlFor="message">{t.contact.labelMessage}</label>
@@ -268,10 +234,7 @@ export function Contact() {
             {state === "mailto" && (
               <div className="form-status success visible" role="status" aria-live="polite">
                 {t.contact.mailtoMsg}{" "}
-                <a
-                  href="mailto:johnkrentschler@icloud.com"
-                  className="contact-inline-link"
-                >
+                <a href="mailto:johnkrentschler@icloud.com" className="contact-inline-link">
                   johnkrentschler@icloud.com
                 </a>
               </div>
@@ -282,11 +245,7 @@ export function Contact() {
               </div>
             )}
 
-            <button
-              type="submit"
-              className="form-submit"
-              disabled={state === "sending"}
-            >
+            <button type="submit" className="form-submit" disabled={state === "sending"}>
               {state === "sending" ? t.contact.submitting : t.contact.submit}
             </button>
           </form>

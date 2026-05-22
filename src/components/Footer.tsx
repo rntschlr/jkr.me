@@ -1,4 +1,4 @@
-import { useLanguage } from "@/i18n/LanguageContext";
+import { useLanguage } from "@/i18n/useLanguage";
 
 export function Footer() {
   const { t } = useLanguage();
@@ -15,11 +15,7 @@ export function Footer() {
               <a href="mailto:johnkrentschler@icloud.com">Email</a>
             </li>
             <li>
-              <a
-                href="https://github.com/rntschlr"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
+              <a href="https://github.com/rntschlr" target="_blank" rel="noopener noreferrer">
                 GitHub
               </a>
             </li>

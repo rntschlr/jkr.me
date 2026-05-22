@@ -6,19 +6,19 @@ Personal portfolio site for John Rentschler — developer, fintech, and networke
 
 ## Stack
 
-| Layer | Tech |
-|---|---|
-| Frontend | React 19, TypeScript 5.7, Vite 6 |
-| Styling | Tailwind CSS 3, custom CSS variables |
-| API | Cloudflare Pages Functions |
-| Email | [Resend](https://resend.com) |
-| Hosting | Cloudflare Pages |
+| Layer    | Tech                                 |
+| -------- | ------------------------------------ |
+| Frontend | React 19, TypeScript 5.7, Vite 6     |
+| Styling  | Tailwind CSS 3, custom CSS variables |
+| API      | Cloudflare Pages Functions           |
+| Email    | [Resend](https://resend.com)         |
+| Hosting  | Cloudflare Pages                     |
 
 ## Local Development
 
 ### Prerequisites
 
-- Node.js 20+
+- Node.js 22+
 - npm 10+
 - [Wrangler CLI](https://developers.cloudflare.com/workers/wrangler/install-and-update/) (included as a dev dependency)
 
@@ -55,15 +55,15 @@ npx wrangler pages dev dist --compatibility-date=2024-12-01
 
 ## Scripts
 
-| Command | Description |
-|---|---|
-| `npm run dev` | Start Vite dev server |
-| `npm run build` | Type-check + production build |
-| `npm run preview` | Preview production build locally |
-| `npm run typecheck` | TypeScript type-check only |
-| `npm run lint` | Lint with ESLint |
-| `npm run lint:fix` | Lint and auto-fix |
-| `npm run format` | Format with Prettier |
+| Command                | Description                      |
+| ---------------------- | -------------------------------- |
+| `npm run dev`          | Start Vite dev server            |
+| `npm run build`        | Type-check + production build    |
+| `npm run preview`      | Preview production build locally |
+| `npm run typecheck`    | TypeScript type-check only       |
+| `npm run lint`         | Lint with ESLint                 |
+| `npm run lint:fix`     | Lint and auto-fix                |
+| `npm run format`       | Format with Prettier             |
 | `npm run format:check` | Check formatting without writing |
 
 ## Project Structure
@@ -98,7 +98,7 @@ The site deploys automatically to Cloudflare Pages on every push to `main` via G
 
 ```bash
 npm run build
-npx wrangler pages deploy dist
+npx wrangler pages deploy dist --project-name=personalportfolio
 ```
 
 ### Cloudflare Pages Secrets
@@ -115,6 +115,17 @@ The contact form at `/api/contact` is a Cloudflare Pages Function that:
 - Rejects bots via a honeypot field
 - Sends email via [Resend](https://resend.com) if `RESEND_API_KEY` is set
 - Returns a `501` with `"fallback": "mailto"` if the key is absent — the frontend handles this gracefully
+
+## Rate Limiting
+
+Production rate limiting is configured at the Cloudflare dashboard level
+(**Security → Rate limiting rules**) on path `/api/contact`. Recommended
+settings: **10 req/min/IP**, action **Block**.
+
+The in-code per-isolate throttle in `functions/api/contact.ts` is a
+defense-in-depth supplement, not a replacement. It only persists for the
+lifetime of a single Cloudflare Worker isolate and provides no
+cross-isolate protection; the dashboard rule is the authoritative gate.
 
 ## License
 

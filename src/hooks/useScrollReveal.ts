@@ -2,9 +2,7 @@ import { useEffect } from "react";
 
 export function useScrollReveal() {
   useEffect(() => {
-    const prefersReduced = window.matchMedia(
-      "(prefers-reduced-motion: reduce)",
-    ).matches;
+    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (prefersReduced) return;
 
     const observer = new IntersectionObserver(
@@ -19,9 +17,7 @@ export function useScrollReveal() {
       { threshold: 0.1, rootMargin: "0px 0px -60px 0px" },
     );
 
-    document
-      .querySelectorAll(".reveal")
-      .forEach((el) => observer.observe(el));
+    document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
 
     return () => observer.disconnect();
   }, []);

@@ -18,7 +18,7 @@ Personal portfolio site for John Rentschler — developer, fintech, and networke
 
 ### Prerequisites
 
-- Node.js 20+
+- Node.js 22+
 - npm 10+
 - [Wrangler CLI](https://developers.cloudflare.com/workers/wrangler/install-and-update/) (included as a dev dependency)
 

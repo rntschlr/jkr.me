@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-
-const SECTIONS = ["skills", "projects", "about", "contact"];
+import { NAV_SECTIONS } from "@/constants/sections";
 
 export function useActiveSection() {
   const [active, setActive] = useState("");
@@ -19,7 +18,7 @@ export function useActiveSection() {
       { rootMargin: "-20% 0px -60% 0px" },
     );
 
-    for (const id of SECTIONS) {
+    for (const id of NAV_SECTIONS) {
       const el = document.getElementById(id);
       if (el) observer.observe(el);
     }

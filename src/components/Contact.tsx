@@ -1,6 +1,12 @@
 import { type FormEvent, useCallback, useRef, useState } from "react";
 import { useLanguage } from "@/i18n/useLanguage";
 import { GitHubIcon } from "./icons";
+import {
+  MAX_NAME_LENGTH,
+  MAX_EMAIL_LENGTH,
+  MAX_SUBJECT_LENGTH,
+  MAX_MESSAGE_LENGTH,
+} from "@/lib/validation";
 
 type FormState = "idle" | "sending" | "success" | "mailto" | "error";
 
@@ -9,11 +15,6 @@ interface ContactResponse {
   fallback?: "mailto";
   success?: boolean;
 }
-
-const MAX_NAME_LENGTH = 100;
-const MAX_EMAIL_LENGTH = 254;
-const MAX_SUBJECT_LENGTH = 150;
-const MAX_MESSAGE_LENGTH = 5000;
 
 export function Contact() {
   const [state, setState] = useState<FormState>("idle");

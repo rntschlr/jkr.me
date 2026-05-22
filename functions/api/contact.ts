@@ -20,6 +20,7 @@ const ALLOWED_ORIGINS = [
 ];
 
 const MAX_BODY_SIZE = 16_384;
+// keep in sync with src/lib/validation.ts
 const MAX_NAME_LENGTH = 100;
 const MAX_EMAIL_LENGTH = 254;
 const MAX_SUBJECT_LENGTH = 150;

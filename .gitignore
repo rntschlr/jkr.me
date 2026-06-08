@@ -24,6 +24,16 @@ FINxCODE.html
 *.html
 !index.html
 
+# Personal documents - keep out of this public repo
+*.pdf
+!public/**/*.pdf
+*.docx
+*.txt
+!public/**/*.txt
+
+# Stray nested homelab config (not part of the site)
+/jkr.me/
+
 # Editor
 .claude
 .vscode

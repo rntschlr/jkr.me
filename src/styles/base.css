@@ -3,29 +3,33 @@
    ======================================== */
 :root {
   /* Dark theme (default) */
-  --bg-primary: #0a0a0f;
-  --bg-secondary: #111118;
-  --bg-tertiary: #1a1a24;
-  --bg-card: #15151e;
-  --bg-card-hover: #1c1c28;
+  --bg-primary: #0b100d;
+  --bg-secondary: #111713;
+  --bg-tertiary: #1a231c;
+  --bg-card: #131b15;
+  --bg-card-hover: #1a251d;
 
-  --text-primary: #e8e8ed;
-  --text-secondary: #a0a0b0;
-  --text-muted: #606070;
+  --text-primary: #edf4ee;
+  --text-secondary: #b7c4b9;
+  --text-muted: #738073;
 
-  --accent: #00d4aa;
-  --accent-dim: rgba(0, 212, 170, 0.15);
-  --accent-glow: rgba(0, 212, 170, 0.4);
+  --accent: #77b890;
+  --accent-strong: #4f9d6b;
+  --accent-warm: #c2d8c8;
+  --accent-dim: rgba(119, 184, 144, 0.14);
+  --accent-glow: rgba(79, 157, 107, 0.3);
+  --paper: #f8fbf6;
+  --ink: #0b140f;
 
-  --border: #2a2a38;
-  --border-light: #1e1e2a;
+  --border: #2d382f;
+  --border-light: #202a23;
 
-  --success: #00d4aa;
-  --warning: #ffb347;
-  --error: #ff6b6b;
+  --success: #77b890;
+  --warning: #8fb99d;
+  --error: #c7665b;
 
-  --font-display:
-    "Inter", "Segoe UI", "Helvetica Neue", -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-display: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif;
+  --font-body: "Avenir Next", "Inter", "Segoe UI", -apple-system, BlinkMacSystemFont, sans-serif;
   --font-mono:
     "SFMono-Regular", "SF Mono", "Cascadia Code", "JetBrains Mono", "Consolas", "Liberation Mono",
     monospace;
@@ -36,28 +40,32 @@
   --max-w: 1280px;
   --gutter: clamp(1.25rem, 4vw, 3rem);
 
-  --radius-sm: 6px;
-  --radius-md: 12px;
-  --radius-lg: 20px;
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 8px;
 }
 
 [data-theme="light"] {
-  --bg-primary: #fafafa;
-  --bg-secondary: #ffffff;
-  --bg-tertiary: #f0f0f5;
+  --bg-primary: #f3f7f1;
+  --bg-secondary: #fbfdf8;
+  --bg-tertiary: #e6eee4;
   --bg-card: #ffffff;
-  --bg-card-hover: #f5f5fa;
+  --bg-card-hover: #f7fbf5;
 
-  --text-primary: #1a1a24;
-  --text-secondary: #4a4a5a;
-  --text-muted: #8a8a9a;
+  --text-primary: #0f1712;
+  --text-secondary: #3d4b41;
+  --text-muted: #6a776d;
 
-  --accent: #00a080;
-  --accent-dim: rgba(0, 160, 128, 0.1);
-  --accent-glow: rgba(0, 160, 128, 0.3);
+  --accent: #2f7d52;
+  --accent-strong: #0f5136;
+  --accent-warm: #8fb99d;
+  --accent-dim: rgba(47, 125, 82, 0.12);
+  --accent-glow: rgba(15, 81, 54, 0.2);
+  --paper: #fbfdf8;
+  --ink: #07110c;
 
-  --border: #e0e0e8;
-  --border-light: #f0f0f5;
+  --border: #cad8cd;
+  --border-light: #dde8df;
 }
 
 /* ========================================
@@ -78,12 +86,20 @@ html {
 }
 
 body {
-  font-family: var(--font-display);
+  font-family: var(--font-body);
   font-weight: 400;
   font-size: 1rem;
   line-height: 1.7;
   color: var(--text-primary);
-  background: var(--bg-primary);
+  background:
+    linear-gradient(
+        90deg,
+        transparent 0,
+        transparent calc(100% - 1px),
+        rgba(143, 185, 157, 0.09) 100%
+      )
+      0 0 / 7rem 7rem,
+    var(--bg-primary);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: clip;
@@ -105,6 +121,11 @@ button {
   cursor: pointer;
   border: none;
   background: none;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent-strong);
+  outline-offset: 4px;
 }
 
 ::selection {

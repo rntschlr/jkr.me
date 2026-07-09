@@ -7,10 +7,17 @@ export interface Translation {
   };
   hero: {
     badge: string;
+    eyebrow: string;
+    headingLead: string;
+    headingAccent: string;
     desc: string;
     cta: string;
     viewProjects: string;
-    phrases: string[];
+    availabilityLabel: string;
+    portraitAlt: string;
+    deskTitle: string;
+    metrics: Array<{ value: string; label: string }>;
+    signals: Array<{ label: string; value: string; detail: string }>;
   };
   skills: {
     label: string;
@@ -79,16 +86,42 @@ export const translations: Record<"en" | "hu", Translation> = {
       contact: "Contact",
     },
     hero: {
-      badge: "Open to opportunities",
-      desc: "Building at the intersection of finance and technology. I craft clean, performant web experiences with modern tooling and a focus on user-centered design.",
-      cta: "Get in Touch",
-      viewProjects: "View Projects",
-      phrases: [
-        "Finance \u00d7 Code",
-        "Full-Stack Developer",
-        "Building for the web",
-        "React & TypeScript",
-        "Data-driven design",
+      badge: "Open to remote product and fintech roles",
+      eyebrow: "Finance-trained builder working between ledgers, interfaces, and automation.",
+      headingLead: "I turn messy decision systems into ",
+      headingAccent: "clear software.",
+      desc: "I bring finance judgment, web engineering, and a bias for usable tools to teams that need accurate data, sharp interfaces, and dependable execution.",
+      cta: "Start a Conversation",
+      viewProjects: "See Work",
+      availabilityLabel: "Available now",
+      portraitAlt: "Portrait of Jack Rentschler",
+      deskTitle: "Operating Signals",
+      metrics: [
+        { value: "5+ yrs", label: "finance, risk, markets" },
+        { value: "3+ yrs", label: "web apps and tooling" },
+        { value: "HU/EU", label: "relocating, remote-ready" },
+      ],
+      signals: [
+        {
+          label: "Model",
+          value: "Risk to requirements",
+          detail: "Spreadsheet logic becomes product logic.",
+        },
+        {
+          label: "Build",
+          value: "React, TypeScript, APIs",
+          detail: "Fast frontends with clean boundaries.",
+        },
+        {
+          label: "Operate",
+          value: "Cloudflare + GitHub",
+          detail: "Small systems that can ship and be maintained.",
+        },
+        {
+          label: "Direction",
+          value: "Fintech and product engineering",
+          detail: "Useful where money, data, and trust meet.",
+        },
       ],
     },
     skills: {
@@ -156,7 +189,7 @@ export const translations: Record<"en" | "hu", Translation> = {
         },
         {
           title: "jkr.me",
-          desc: "This portfolio site\u2014built with React 19, TypeScript, Vite, and Tailwind CSS, featuring bilingual support and dark/light theming.",
+          desc: "This portfolio site\u2014built with React 19, TypeScript, Vite, Cloudflare Pages, bilingual support, and dark/light theming.",
           alt: "Portfolio website screenshot",
         },
       ],
@@ -216,16 +249,42 @@ export const translations: Record<"en" | "hu", Translation> = {
       contact: "Kapcsolat",
     },
     hero: {
-      badge: "Nyitott vagyok az új lehetőségekre",
-      desc: "A pénzügy és a technológia találkozásánál dolgozom. Modern eszközökkel és a felhasználóközpontú tervezésre összpontosítva tiszta, jól teljesítő webes felületeket készítek.",
-      cta: "Kapcsolat",
-      viewProjects: "Projektek megtekintése",
-      phrases: [
-        "Pénzügy × Kód",
-        "Full-Stack fejlesztő",
-        "Webes fejlesztés",
-        "React & TypeScript",
-        "Adatvezérelt tervezés",
+      badge: "Nyitott vagyok távoli termék- és fintech szerepekre",
+      eyebrow: "Pénzügyi háttérrel építek a főkönyvek, felületek és automatizálás határán.",
+      headingLead: "Rendezetlen döntési rendszerekből ",
+      headingAccent: "átlátható szoftvert építek.",
+      desc: "Pénzügyi ítélőképességet, webes fejlesztést és használható eszközökre fókuszáló szemléletet hozok olyan csapatoknak, amelyeknek pontos adatokra, éles felületekre és megbízható kivitelezésre van szükségük.",
+      cta: "Beszéljünk",
+      viewProjects: "Munkák",
+      availabilityLabel: "Elérhető vagyok",
+      portraitAlt: "Jack Rentschler portréja",
+      deskTitle: "Működési jelek",
+      metrics: [
+        { value: "5+ év", label: "pénzügy, kockázat, piacok" },
+        { value: "3+ év", label: "webalkalmazások és eszközök" },
+        { value: "HU/EU", label: "költözés, távmunkára kész" },
+      ],
+      signals: [
+        {
+          label: "Modellezés",
+          value: "Kockázatból követelmény",
+          detail: "A táblázatos logikából terméklogika lesz.",
+        },
+        {
+          label: "Építés",
+          value: "React, TypeScript, API-k",
+          detail: "Gyors frontendek tiszta határokkal.",
+        },
+        {
+          label: "Üzemeltetés",
+          value: "Cloudflare + GitHub",
+          detail: "Kis rendszerek, amelyek szállíthatók és karbantarthatók.",
+        },
+        {
+          label: "Irány",
+          value: "Fintech és termékfejlesztés",
+          detail: "Hasznos ott, ahol pénz, adat és bizalom találkozik.",
+        },
       ],
     },
     skills: {
@@ -293,7 +352,7 @@ export const translations: Record<"en" | "hu", Translation> = {
         },
         {
           title: "jkr.me",
-          desc: "Ez a portfólióoldal — React 19, TypeScript, Vite és Tailwind CSS segítségével készült, kétnyelvű támogatással és sötét/világos témával.",
+          desc: "Ez a portfólióoldal — React 19, TypeScript, Vite és Cloudflare Pages segítségével készült, kétnyelvű támogatással és sötét/világos témával.",
           alt: "A portfólióoldal képernyőképe",
         },
       ],

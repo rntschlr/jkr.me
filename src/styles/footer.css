@@ -4,6 +4,7 @@
 .footer {
   padding: 3rem 0;
   border-top: 1px solid var(--border);
+  background: var(--bg-primary);
 }
 
 .footer-inner {
@@ -21,7 +22,7 @@
 }
 
 .footer-brand span {
-  color: var(--accent);
+  color: var(--accent-strong);
 }
 
 .footer-links {
@@ -38,7 +39,7 @@
 }
 
 .footer-links a:hover {
-  color: var(--accent);
+  color: var(--accent-strong);
 }
 
 .footer-copy {

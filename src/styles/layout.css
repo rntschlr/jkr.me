@@ -8,15 +8,19 @@
 }
 
 .section {
-  padding: clamp(4rem, 10vw, 8rem) 0;
+  padding: 6rem 0;
 }
 
 .section-alt {
-  background: var(--bg-secondary);
+  background:
+    linear-gradient(180deg, rgba(143, 185, 157, 0.08), transparent 18rem), var(--bg-secondary);
+  border-top: 1px solid var(--border-light);
+  border-bottom: 1px solid var(--border-light);
 }
 
 .section-header {
-  margin-bottom: 3rem;
+  max-width: 48rem;
+  margin-bottom: 2.5rem;
 }
 
 .section-label {
@@ -26,21 +30,25 @@
   font-family: var(--font-mono);
   font-size: 0.8125rem;
   font-weight: 500;
-  color: var(--accent);
+  color: var(--accent-strong);
   margin-bottom: 0.75rem;
+  text-transform: uppercase;
 }
 
 .section-label::before {
-  content: "//";
-  opacity: 0.6;
+  content: "";
+  width: 2rem;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.75;
 }
 
 .section-title {
   font-family: var(--font-display);
-  font-size: clamp(2rem, 5vw, 3rem);
+  font-size: 3rem;
   font-weight: 700;
   line-height: 1.15;
-  letter-spacing: -0.02em;
+  letter-spacing: 0;
 }
 
 .section-desc {
@@ -58,14 +66,22 @@
   inset: 0;
   pointer-events: none;
   z-index: -1;
-  opacity: 0.03;
+  opacity: 0.08;
   background-image:
-    linear-gradient(var(--accent) 1px, transparent 1px),
+    linear-gradient(var(--accent-warm) 1px, transparent 1px),
     linear-gradient(90deg, var(--accent) 1px, transparent 1px);
-  background-size: 60px 60px;
+  background-size: 7rem 7rem;
 }
 
 @media (max-width: 768px) {
+  .section {
+    padding: 4rem 0;
+  }
+
+  .section-title {
+    font-size: 2.25rem;
+  }
+
   .grid-bg {
     display: none;
   }

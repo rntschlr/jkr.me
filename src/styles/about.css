@@ -3,7 +3,7 @@
    ======================================== */
 .about-grid {
   display: grid;
-  grid-template-columns: 1fr 1.2fr;
+  grid-template-columns: minmax(18rem, 0.82fr) 1.18fr;
   gap: 4rem;
   align-items: center;
 }
@@ -17,6 +17,7 @@
 
 .about-image-wrapper {
   position: relative;
+  max-width: 380px;
 }
 
 .about-image {
@@ -24,22 +25,20 @@
   max-width: 380px;
   aspect-ratio: 1;
   object-fit: cover;
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-md);
   border: 1px solid var(--border);
+  filter: saturate(0.85) contrast(1.04);
+  box-shadow: 1.1rem 1.1rem 0 color-mix(in srgb, var(--accent-warm) 28%, transparent);
 }
 
 .about-image-decoration {
-  position: absolute;
-  inset: -20px;
-  border: 1px solid var(--accent);
-  border-radius: var(--radius-lg);
-  opacity: 0.3;
-  z-index: -1;
+  display: none;
 }
 
 .about-content h3 {
-  font-size: 1.5rem;
-  font-weight: 600;
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 700;
   margin-bottom: 1.25rem;
 }
 
@@ -56,20 +55,35 @@
 .about-stats {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 1.5rem;
-  padding-top: 2rem;
-  border-top: 1px solid var(--border);
+  gap: 1px;
+  overflow: hidden;
+  margin-top: 2rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--border);
+}
+
+.about-stats > div {
+  padding: 1rem;
+  background: var(--bg-card);
 }
 
 .about-stat-value {
   font-family: var(--font-mono);
-  font-size: 2rem;
+  font-size: 1.7rem;
   font-weight: 700;
-  color: var(--accent);
+  color: var(--accent-strong);
   margin-bottom: 0.25rem;
 }
 
 .about-stat-label {
   font-size: 0.8125rem;
   color: var(--text-muted);
+  line-height: 1.35;
+}
+
+@media (max-width: 640px) {
+  .about-stats {
+    grid-template-columns: 1fr;
+  }
 }

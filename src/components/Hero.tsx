@@ -9,7 +9,13 @@ export function Hero() {
         <div className="hero-shell">
           <div className="hero-content">
             <div className="hero-kicker">
-              <img className="hero-kicker-photo" src="/profile.jpg" alt="" width={48} height={48} />
+              <img
+                className="hero-kicker-photo"
+                src="/profile-96.jpg"
+                alt=""
+                width={48}
+                height={48}
+              />
               <span className="hero-kicker-copy">
                 <span className="hero-kicker-index">JR / 2026</span>
                 <span>{t.hero.badge}</span>
@@ -46,7 +52,13 @@ export function Hero() {
           <aside className="hero-desk" aria-label={t.hero.deskTitle}>
             <div className="hero-portrait-panel">
               <div className="hero-portrait-frame">
-                <img src="/profile.jpg" alt={t.hero.portraitAlt} width={800} height={800} />
+                <img
+                  src="/profile.jpg"
+                  alt={t.hero.portraitAlt}
+                  width={800}
+                  height={800}
+                  fetchPriority="high"
+                />
               </div>
               <div className="hero-portrait-caption">
                 <span>{t.hero.availabilityLabel}</span>
@@ -72,7 +84,7 @@ export function Hero() {
           </aside>
         </div>
 
-        <div className="hero-metrics" aria-label="Homepage highlights">
+        <div className="hero-metrics" role="group" aria-label={t.hero.metricsTitle}>
           {t.hero.metrics.map((metric) => (
             <div className="hero-metric" key={metric.label}>
               <strong>{metric.value}</strong>

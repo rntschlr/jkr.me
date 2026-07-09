@@ -22,7 +22,6 @@ export function About() {
               width={380}
               height={380}
             />
-            <div className="about-image-decoration" />
           </div>
 
           <div className="about-content reveal reveal-delay-1">

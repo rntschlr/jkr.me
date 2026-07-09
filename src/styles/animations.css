@@ -60,10 +60,18 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
   .reveal,
   .stagger-children > * {
     opacity: 1;
     transform: none;
     transition: none;
+  }
+
+  .contact-availability h4::before {
+    animation: none;
   }
 }

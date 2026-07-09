@@ -155,7 +155,7 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
         body: JSON.stringify({
           from: "contact@johnkrentschler.me",
           to: "johnkrentschler@icloud.com",
-          subject: subject || `Contact from ${name}`,
+          subject: subject || sanitizeSubject(`Contact from ${name}`),
           text: `Name: ${name}\nEmail: ${email}\nSubject: ${subject || "(none)"}\n\n${message}`,
           reply_to: email,
         }),

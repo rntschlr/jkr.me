@@ -11,7 +11,7 @@
 
   --text-primary: #edf4ee;
   --text-secondary: #b7c4b9;
-  --text-muted: #738073;
+  --text-muted: #828f83;
 
   --accent: #77b890;
   --accent-strong: #4f9d6b;
@@ -20,12 +20,13 @@
   --accent-glow: rgba(79, 157, 107, 0.3);
   --paper: #f8fbf6;
   --ink: #0b140f;
+  /* Foreground for text/icons sitting on an --accent fill (AA on both themes) */
+  --on-accent: #0b140f;
 
   --border: #2d382f;
   --border-light: #202a23;
 
   --success: #77b890;
-  --warning: #8fb99d;
   --error: #c7665b;
 
   --font-display: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif;
@@ -54,7 +55,7 @@
 
   --text-primary: #0f1712;
   --text-secondary: #3d4b41;
-  --text-muted: #6a776d;
+  --text-muted: #5c6960;
 
   --accent: #2f7d52;
   --accent-strong: #0f5136;
@@ -63,6 +64,8 @@
   --accent-glow: rgba(15, 81, 54, 0.2);
   --paper: #fbfdf8;
   --ink: #07110c;
+  /* Light theme needs a light foreground on the darker accent fill */
+  --on-accent: #fbfdf8;
 
   --border: #cad8cd;
   --border-light: #dde8df;

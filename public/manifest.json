@@ -1,11 +1,11 @@
 {
   "name": "John K. Rentschler — Finance × Code",
   "short_name": "JKR",
-  "description": "Developer at the intersection of finance and computer science.",
+  "description": "Finance-trained developer building clear software for data-heavy, product-minded teams.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#0a0a0f",
-  "theme_color": "#00d4aa",
+  "background_color": "#0b100d",
+  "theme_color": "#0b100d",
   "icons": [
     {
       "src": "/icons/icon-192.png",

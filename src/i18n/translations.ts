@@ -16,6 +16,7 @@ export interface Translation {
     availabilityLabel: string;
     portraitAlt: string;
     deskTitle: string;
+    metricsTitle: string;
     metrics: Array<{ value: string; label: string }>;
     signals: Array<{ label: string; value: string; detail: string }>;
   };
@@ -96,6 +97,7 @@ export const translations: Record<"en" | "hu", Translation> = {
       availabilityLabel: "Available now",
       portraitAlt: "Portrait of Jack Rentschler",
       deskTitle: "Operating Signals",
+      metricsTitle: "Homepage highlights",
       metrics: [
         { value: "5+ yrs", label: "finance, risk, markets" },
         { value: "3+ yrs", label: "web apps and tooling" },
@@ -259,6 +261,7 @@ export const translations: Record<"en" | "hu", Translation> = {
       availabilityLabel: "Elérhető vagyok",
       portraitAlt: "Jack Rentschler portréja",
       deskTitle: "Működési jelek",
+      metricsTitle: "Kiemelt adatok",
       metrics: [
         { value: "5+ év", label: "pénzügy, kockázat, piacok" },
         { value: "3+ év", label: "webalkalmazások és eszközök" },

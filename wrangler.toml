@@ -1,7 +1,8 @@
-# Rate limiting for /api/contact is handled at the Cloudflare dashboard level,
-# not here. See the "Rate Limiting" section in README.md for the recommended
-# rules (Security → Rate limiting rules, 10 req/min/IP, action Block).
-# The per-isolate throttle in functions/api/contact.ts is defense-in-depth only.
+# Rate limiting for /api/contact is enforced ONLY at the Cloudflare dashboard
+# level, not in code. See the "Rate Limiting" section in README.md for the
+# recommended rules (Security → Rate limiting rules, 10 req/min/IP, action Block).
+# functions/api/contact.ts has no application-level throttle — the origin
+# allowlist and field validation there are the only in-code gates.
 
 name = "personalportfolio"
 compatibility_date = "2024-12-01"

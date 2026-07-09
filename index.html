@@ -15,6 +15,15 @@
     <link rel="preconnect" href="https://images.unsplash.com" />
     <link rel="manifest" href="/manifest.json" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/icon-192.png" />
+    <!-- Preload the hero portrait (LCP) only where it actually renders (>760px) -->
+    <link
+      rel="preload"
+      as="image"
+      href="/profile.jpg"
+      media="(min-width: 761px)"
+      fetchpriority="high"
+    />
     <script src="/theme-init.js"></script>
 
     <!-- Open Graph -->

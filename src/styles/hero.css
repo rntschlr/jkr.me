@@ -132,7 +132,7 @@
 
 .btn-primary {
   background: var(--accent);
-  color: var(--ink);
+  color: var(--on-accent);
   box-shadow: 0 0.9rem 2rem rgba(0, 0, 0, 0.22);
 }
 
@@ -165,6 +165,7 @@
   gap: 1rem;
   align-items: stretch;
   padding: 1rem;
+  background-color: var(--bg-card);
   background:
     linear-gradient(180deg, rgba(255, 255, 255, 0.045), transparent),
     color-mix(in srgb, var(--bg-card) 92%, black);
@@ -192,6 +193,7 @@
   min-height: 18rem;
   overflow: hidden;
   border-radius: calc(var(--radius-sm) - 1px) calc(var(--radius-sm) - 1px) 0 0;
+  background-color: var(--bg-tertiary);
   background: color-mix(in srgb, var(--accent-warm) 24%, var(--bg-tertiary));
 }
 

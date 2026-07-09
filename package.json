@@ -14,7 +14,7 @@
     "lint:fix": "eslint . --fix",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "security:audit": "npm audit --audit-level=moderate"
+    "security:audit": "npm audit --omit=dev --audit-level=moderate"
   },
   "engines": {
     "node": ">=22"

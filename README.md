@@ -9,7 +9,7 @@ Personal portfolio site for John Rentschler — developer, fintech, and networke
 | Layer    | Tech                                 |
 | -------- | ------------------------------------ |
 | Frontend | React 19, TypeScript 5.7, Vite 6     |
-| Styling  | Tailwind CSS 3, custom CSS variables |
+| Styling  | Hand-authored CSS, custom properties |
 | API      | Cloudflare Pages Functions           |
 | Email    | [Resend](https://resend.com)         |
 | Hosting  | Cloudflare Pages                     |
@@ -25,8 +25,8 @@ Personal portfolio site for John Rentschler — developer, fintech, and networke
 ### Setup
 
 ```bash
-git clone https://github.com/rntschlr/johnkrentschler.me.git
-cd johnkrentschler.me
+git clone https://github.com/rntschlr/jkr.me.git
+cd jkr.me
 npm install
 ```
 
@@ -81,12 +81,12 @@ npx wrangler pages dev dist --compatibility-date=2024-12-01
 ├── src/
 │   ├── components/        # React section components
 │   ├── hooks/             # Custom React hooks
+│   ├── styles/            # Hand-authored CSS (one file per section)
 │   ├── App.tsx
 │   ├── main.tsx
 │   └── index.css
 ├── index.html
 ├── vite.config.ts
-├── tailwind.config.ts
 └── wrangler.toml
 ```
 

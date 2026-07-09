@@ -16,7 +16,7 @@ export const PROJECT_META: Array<{
   },
   {
     img: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=600&h=300&q=80",
-    tags: ["React 19", "TypeScript", "Vite", "Tailwind"],
+    tags: ["React 19", "TypeScript", "Vite", "CSS"],
     repo: "https://github.com/rntschlr/jkr.me",
     live: "https://johnkrentschler.me",
   },

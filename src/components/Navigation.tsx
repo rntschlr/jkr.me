@@ -6,10 +6,11 @@ import { useLanguage } from "@/i18n/useLanguage";
 import { NAV_SECTIONS, type NavSection } from "@/constants/sections";
 
 interface NavigationProps {
+  theme: "dark" | "light";
   onToggleTheme: () => void;
 }
 
-export function Navigation({ onToggleTheme }: NavigationProps) {
+export function Navigation({ theme, onToggleTheme }: NavigationProps) {
   const scrolled = useScrolledNav();
   const active = useActiveSection();
   const [menuOpen, setMenuOpen] = useState(false);
@@ -55,7 +56,7 @@ export function Navigation({ onToggleTheme }: NavigationProps) {
             type="button"
             className="theme-toggle"
             onClick={onToggleTheme}
-            aria-label="Toggle theme"
+            aria-label={theme === "dark" ? "Switch to light theme" : "Switch to dark theme"}
           >
             <svg
               className="sun-icon"
@@ -84,6 +85,7 @@ export function Navigation({ onToggleTheme }: NavigationProps) {
             onClick={() => setMenuOpen((o) => !o)}
             aria-label="Toggle menu"
             aria-expanded={menuOpen}
+            aria-controls="navLinks"
           >
             <span />
             <span />

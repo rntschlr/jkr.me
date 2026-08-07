@@ -11,12 +11,21 @@ export const SKILL_META: Array<{ icon: React.ReactNode; tags: string[] }> = [
   {
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+        <path d="M8 3H7a2 2 0 0 0-2 2v5a2 2 0 0 1-2 2 2 2 0 0 1 2 2v5c0 1.1.9 2 2 2h1" />
+        <path d="M16 21h1a2 2 0 0 0 2-2v-5c0-1.1.9-2 2-2a2 2 0 0 1-2-2V5a2 2 0 0 0-2-2h-1" />
+      </svg>
+    ),
+    tags: ["JavaScript", "TypeScript", "Node.js"],
+  },
+  {
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
         <circle cx="12" cy="12" r="10" />
         <line x1="2" y1="12" x2="22" y2="12" />
         <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
       </svg>
     ),
-    tags: ["HTML", "CSS", "Self-Hosting"],
+    tags: ["React 19", "HTML", "CSS"],
   },
   {
     icon: (
@@ -36,7 +45,18 @@ export const SKILL_META: Array<{ icon: React.ReactNode; tags: string[] }> = [
         <line x1="12" y1="17" x2="12" y2="21" />
       </svg>
     ),
-    tags: ["AWS", "Git & GitHub", "Linux", "Docker"],
+    tags: ["AWS", "Git & GitHub", "Linux", "Docker", "Self-Hosting"],
+  },
+  {
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+        <path d="M3 12a9 9 0 0 1 15-6.7L21 8" />
+        <path d="M21 3v5h-5" />
+        <path d="M21 12a9 9 0 0 1-15 6.7L3 16" />
+        <path d="M3 21v-5h5" />
+      </svg>
+    ),
+    tags: ["REST APIs", "GitHub Actions", "Cloudflare Pages"],
   },
   {
     icon: (

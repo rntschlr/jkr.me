@@ -5,14 +5,22 @@ import { PROJECT_META } from "@/data/projects";
 function ProjectLink({
   href,
   label,
+  ariaLabel,
   icon,
 }: {
   href: string;
   label: string;
+  ariaLabel: string;
   icon: React.ReactNode;
 }) {
   return (
-    <a href={href} target="_blank" rel="noopener noreferrer" className="project-link">
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="project-link"
+      aria-label={ariaLabel}
+    >
       {icon}
       {label}
     </a>
@@ -59,10 +67,20 @@ export function Projects() {
                 {(meta.repo || meta.live) && (
                   <div className="project-links">
                     {meta.repo && (
-                      <ProjectLink href={meta.repo} label="Code" icon={<GitHubIcon />} />
+                      <ProjectLink
+                        href={meta.repo}
+                        label="Code"
+                        ariaLabel={`${item.title} — source code on GitHub`}
+                        icon={<GitHubIcon />}
+                      />
                     )}
                     {meta.live && (
-                      <ProjectLink href={meta.live} label="Live" icon={<ExternalLinkIcon />} />
+                      <ProjectLink
+                        href={meta.live}
+                        label="Live"
+                        ariaLabel={`${item.title} — live site`}
+                        icon={<ExternalLinkIcon />}
+                      />
                     )}
                   </div>
                 )}

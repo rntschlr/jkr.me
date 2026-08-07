@@ -1,0 +1,103 @@
+:root {
+  --bg: #0b100d;
+  --text: #eef3ef;
+  --text-secondary: #b6c4ba;
+  --accent: #8fb99d;
+  --accent-strong: #2f7d52;
+  --border: #22302a;
+}
+
+:root[data-theme="light"] {
+  --bg: #f3f7f1;
+  --text: #14201a;
+  --text-secondary: #45564c;
+  --accent: #2f7d52;
+  --accent-strong: #0f5136;
+  --border: #d5e0d6;
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+    --bg: #f3f7f1;
+    --text: #14201a;
+    --text-secondary: #45564c;
+    --accent: #2f7d52;
+    --accent-strong: #0f5136;
+    --border: #d5e0d6;
+  }
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg);
+  color: var(--text);
+  font-family:
+    "Avenir Next",
+    Avenir,
+    "Helvetica Neue",
+    Helvetica,
+    Arial,
+    sans-serif;
+  padding: 2rem;
+}
+
+.notfound {
+  max-width: 34rem;
+}
+
+.kicker {
+  font-family: "SF Mono", SFMono-Regular, ui-monospace, Menlo, Consolas, monospace;
+  font-size: 0.8125rem;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+  margin-bottom: 1.25rem;
+}
+
+h1 {
+  font-family:
+    "Iowan Old Style",
+    "Palatino Linotype",
+    Palatino,
+    Georgia,
+    serif;
+  font-size: clamp(2rem, 6vw, 3.25rem);
+  line-height: 1.1;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.lede {
+  color: var(--text-secondary);
+  line-height: 1.65;
+  margin-bottom: 2rem;
+}
+
+.home-link {
+  display: inline-block;
+  padding: 0.75rem 1.25rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 600;
+  transition: border-color 0.2s ease;
+}
+
+.home-link:hover,
+.home-link:focus-visible {
+  border-color: var(--accent-strong);
+}
+
+.home-link:focus-visible {
+  outline: 2px solid var(--accent-strong);
+  outline-offset: 4px;
+}

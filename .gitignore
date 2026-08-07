@@ -23,6 +23,7 @@ DEVDASH.html
 FINxCODE.html
 *.html
 !index.html
+!public/404.html
 
 # Personal documents - keep out of this public repo
 *.pdf

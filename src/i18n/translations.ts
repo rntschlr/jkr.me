@@ -117,7 +117,7 @@ export const translations: Record<"en" | "hu", Translation> = {
         {
           label: "Operate",
           value: "Cloudflare + GitHub",
-          detail: "Small systems that can ship and be maintained.",
+          detail: "Small systems that ship and stay maintainable.",
         },
         {
           label: "Direction",
@@ -136,6 +136,10 @@ export const translations: Record<"en" | "hu", Translation> = {
           desc: "Proficient in systems and application-level programming across multiple paradigms.",
         },
         {
+          title: "JavaScript & TypeScript",
+          desc: "Typed, modern application code from the browser to Node.js.",
+        },
+        {
           title: "Web Development",
           desc: "Building and deploying responsive web experiences with modern standards.",
         },
@@ -146,6 +150,10 @@ export const translations: Record<"en" | "hu", Translation> = {
         {
           title: "Tools & Platforms",
           desc: "Cloud infrastructure, containerization, and version control for modern development workflows.",
+        },
+        {
+          title: "APIs & Automation",
+          desc: "Designing and consuming HTTP APIs, with automated build and deploy pipelines.",
         },
         {
           title: "Databases & Analytics",
@@ -181,18 +189,18 @@ export const translations: Record<"en" | "hu", Translation> = {
       items: [
         {
           title: "hungary-tracker",
-          desc: "A React app for expats to track immigration documents needed for Hungary\u2019s Enter Hungary portal, with progress tracking and local persistence.",
-          alt: "Immigration document checklist interface",
+          desc: "A React app for expats to track immigration documents needed for the Enter Hungary portal, with progress tracking and local persistence.",
+          alt: "",
         },
         {
           title: "market-pulse",
           desc: "A Python CLI tool that fetches live stock and crypto prices from a free API and displays color-coded changes in the terminal.",
-          alt: "Terminal displaying live market data",
+          alt: "",
         },
         {
           title: "jkr.me",
-          desc: "This portfolio site\u2014built with React 19, TypeScript, Vite, Cloudflare Pages, bilingual support, and dark/light theming.",
-          alt: "Portfolio website screenshot",
+          desc: "This portfolio site\u2014built with React 19, TypeScript, Vite, and Cloudflare Pages, with bilingual support and dark/light theming.",
+          alt: "",
         },
       ],
     },
@@ -217,7 +225,7 @@ export const translations: Record<"en" | "hu", Translation> = {
       locationValue: "United States \u2192 Hungary",
       availabilityHeading: "Availability",
       availabilityDesc:
-        "Currently relocating to Hungary via family reunification visa. Open to remote work and European opportunities. Interested in frontend development, fintech, and product engineering roles.",
+        "Currently relocating to Hungary. Open to remote work and European opportunities. Interested in frontend development, fintech, and product engineering roles.",
       labelName: "Name",
       labelEmail: "Email",
       labelSubject: "Subject",
@@ -300,6 +308,10 @@ export const translations: Record<"en" | "hu", Translation> = {
           desc: "Jártasság a rendszer- és alkalmazásszintű programozásban több paradigmán átívelően.",
         },
         {
+          title: "JavaScript és TypeScript",
+          desc: "Típusos, modern alkalmazáskód a böngészőtől a Node.js-ig.",
+        },
+        {
           title: "Webfejlesztés",
           desc: "Reszponzív webes élmények létrehozása és üzembe helyezése modern szabványok szerint.",
         },
@@ -310,6 +322,10 @@ export const translations: Record<"en" | "hu", Translation> = {
         {
           title: "Eszközök és platformok",
           desc: "Felhőalapú infrastruktúra, konténeresítés és verziókezelés a modern fejlesztési munkafolyamatokhoz.",
+        },
+        {
+          title: "API-k és automatizálás",
+          desc: "HTTP API-k tervezése és használata automatizált build- és telepítési folyamatokkal.",
         },
         {
           title: "Adatbázisok és elemzés",
@@ -345,18 +361,18 @@ export const translations: Record<"en" | "hu", Translation> = {
       items: [
         {
           title: "hungary-tracker",
-          desc: "Egy React-alkalmazás külföldiek számára, amely nyomon követi a magyarországi Enter Hungary portálhoz szükséges bevándorlási dokumentumokat, haladáskövetéssel és helyi adattárolással.",
-          alt: "Bevándorlási dokumentumok ellenőrzőlistájának felülete",
+          desc: "Egy React-alkalmazás külföldiek számára, amely nyomon követi az Enter Hungary portálhoz szükséges bevándorlási dokumentumokat, haladáskövetéssel és helyi adattárolással.",
+          alt: "",
         },
         {
           title: "market-pulse",
           desc: "Egy Python CLI-eszköz, amely ingyenes API-ból tölti be az élő részvény- és kriptovaluta-árakat, és színkóddal jelzi a változásokat a terminálon.",
-          alt: "Élő piaci adatokat megjelenítő terminál",
+          alt: "",
         },
         {
           title: "jkr.me",
           desc: "Ez a portfólióoldal — React 19, TypeScript, Vite és Cloudflare Pages segítségével készült, kétnyelvű támogatással és sötét/világos témával.",
-          alt: "A portfólióoldal képernyőképe",
+          alt: "",
         },
       ],
     },
@@ -381,7 +397,7 @@ export const translations: Record<"en" | "hu", Translation> = {
       locationValue: "Egyesült Államok → Magyarország",
       availabilityHeading: "Elérhetőség",
       availabilityDesc:
-        "Jelenleg családegyesítési vízummal költözöm Magyarországra. Nyitott vagyok a távmunkára és az európai lehetőségekre. Érdekelnek a frontend fejlesztés, a fintech és a termékfejlesztés területén elérhető pozíciók.",
+        "Jelenleg Magyarországra költözöm. Nyitott vagyok a távmunkára és az európai lehetőségekre. Érdekelnek a frontend fejlesztés, a fintech és a termékfejlesztés területén elérhető pozíciók.",
       labelName: "Név",
       labelEmail: "E-mail",
       labelSubject: "Tárgy",

@@ -9,7 +9,7 @@ import { Contact } from "@/components/Contact";
 import { Footer } from "@/components/Footer";
 
 export default function App() {
-  const { toggle } = useTheme();
+  const { theme, toggle } = useTheme();
   useScrollReveal();
 
   return (
@@ -20,7 +20,7 @@ export default function App() {
 
       <div className="grid-bg" aria-hidden="true" />
 
-      <Navigation onToggleTheme={toggle} />
+      <Navigation theme={theme} onToggleTheme={toggle} />
 
       <main id="main">
         <Hero />

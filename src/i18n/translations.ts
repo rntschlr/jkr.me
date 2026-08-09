@@ -188,6 +188,11 @@ export const translations: Record<"en" | "hu", Translation> = {
       viewGithub: "View GitHub Profile",
       items: [
         {
+          title: "travel-blog",
+          desc: "A self-run travel blog with a phone-friendly CMS, photo gallery, RSS feed, and email newsletter — built with Astro and Tailwind CSS, hosted free on GitHub Pages.",
+          alt: "Map and camera laid out for planning a journey",
+        },
+        {
           title: "hungary-tracker",
           desc: "A React app for expats to track immigration documents needed for the Enter Hungary portal, with progress tracking and local persistence.",
           alt: "",
@@ -359,6 +364,11 @@ export const translations: Record<"en" | "hu", Translation> = {
       desc: "Kiválasztott munkák, amelyek bemutatják a technikai problémamegoldást és a szakma iránti figyelmet.",
       viewGithub: "GitHub-profil megtekintése",
       items: [
+        {
+          title: "travel-blog",
+          desc: "Saját üzemeltetésű utazási blog telefonbarát tartalomkezelővel, fotógalériával, RSS-csatornával és e-mail hírlevéllel — Astro és Tailwind CSS alapokon, ingyenesen a GitHub Pages-en.",
+          alt: "Térkép és fényképezőgép egy utazás tervezéséhez",
+        },
         {
           title: "hungary-tracker",
           desc: "Egy React-alkalmazás külföldiek számára, amely nyomon követi az Enter Hungary portálhoz szükséges bevándorlási dokumentumokat, haladáskövetéssel és helyi adattárolással.",

@@ -115,7 +115,7 @@ mismatch is the first thing a recruiter notices. Worth twenty minutes:
 - [ ] **Location: Budapest, Hungary.** Not the US. This is the single biggest
       filter recruiters apply, and it is the whole reason your site now says it.
 - [ ] **Headline.** Not just "Student" or a job title you have left. Something
-      like *"IT Infrastructure & Fintech · Proxmox, Linux, Networking · Budapest"*.
+      like _"IT Infrastructure & Fintech · Proxmox, Linux, Networking · Budapest"_.
       This is the line that shows up in search results.
 - [ ] **About section.** Three or four sentences: finance background, the move
       into infrastructure, the homelab, what you are looking for. Say the permit
@@ -133,14 +133,14 @@ mismatch is the first thing a recruiter notices. Worth twenty minutes:
 
 ## Where things live
 
-| What | Where |
-|---|---|
-| Switches for CV and LinkedIn | `src/constants/profile.ts` |
-| Your CV file | `public/cv/` |
-| All site wording, English and Hungarian | `src/i18n/translations.ts` |
-| Homelab section content | `src/i18n/translations.ts` and `src/data/homelab.tsx` |
-| Project cards | `src/data/projects.ts` |
-| Project screenshots | `public/images/projects/` |
+| What                                    | Where                                                 |
+| --------------------------------------- | ----------------------------------------------------- |
+| Switches for CV and LinkedIn            | `src/constants/profile.ts`                            |
+| Your CV file                            | `public/cv/`                                          |
+| All site wording, English and Hungarian | `src/i18n/translations.ts`                            |
+| Homelab section content                 | `src/i18n/translations.ts` and `src/data/homelab.tsx` |
+| Project cards                           | `src/data/projects.ts`                                |
+| Project screenshots                     | `public/images/projects/`                             |
 
 > **One thing to be careful about:** the project cards, skills, and homelab
 > entries are stored as matching lists — one list holds the pictures and tags,

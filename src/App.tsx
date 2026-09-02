@@ -3,6 +3,7 @@ import { useScrollReveal } from "@/hooks/useScrollReveal";
 import { Navigation } from "@/components/Navigation";
 import { Hero } from "@/components/Hero";
 import { Skills } from "@/components/Skills";
+import { Homelab } from "@/components/Homelab";
 import { Projects } from "@/components/Projects";
 import { About } from "@/components/About";
 import { Contact } from "@/components/Contact";
@@ -25,6 +26,7 @@ export default function App() {
       <main id="main">
         <Hero />
         <Skills />
+        <Homelab />
         <Projects />
         <About />
         <Contact />

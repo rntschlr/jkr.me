@@ -164,6 +164,34 @@ export function Contact() {
               </div>
             </div>
 
+            <div className="contact-detail">
+              <div className="contact-detail-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <rect x="3" y="7" width="18" height="13" rx="2" />
+                  <path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2" />
+                  <path d="M3 12h18" />
+                </svg>
+              </div>
+              <div>
+                <div className="contact-detail-label">{t.contact.workRightsLabel}</div>
+                <div className="contact-detail-value">{t.contact.workRightsValue}</div>
+              </div>
+            </div>
+
+            <div className="contact-detail">
+              <div className="contact-detail-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <circle cx="12" cy="12" r="9" />
+                  <path d="M3 12h18" />
+                  <path d="M12 3a15 15 0 0 1 0 18 15 15 0 0 1 0-18z" />
+                </svg>
+              </div>
+              <div>
+                <div className="contact-detail-label">{t.contact.languagesLabel}</div>
+                <div className="contact-detail-value">{t.contact.languagesValue}</div>
+              </div>
+            </div>
+
             <div className="contact-availability">
               <h4>{t.contact.availabilityHeading}</h4>
               <p>{t.contact.availabilityDesc}</p>

@@ -1,4 +1,5 @@
 import { useLanguage } from "@/i18n/useLanguage";
+import { LINKEDIN_URL } from "@/constants/profile";
 
 export function Footer() {
   const { t } = useLanguage();
@@ -19,6 +20,13 @@ export function Footer() {
                 GitHub
               </a>
             </li>
+            {LINKEDIN_URL && (
+              <li>
+                <a href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer">
+                  LinkedIn
+                </a>
+              </li>
+            )}
             <li>
               <a href="#home">{t.footer.backToTop}</a>
             </li>

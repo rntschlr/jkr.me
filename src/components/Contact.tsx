@@ -1,6 +1,7 @@
 import { type FormEvent, useCallback, useRef, useState } from "react";
 import { useLanguage } from "@/i18n/useLanguage";
-import { GitHubIcon } from "./icons";
+import { GitHubIcon, LinkedInIcon } from "./icons";
+import { LINKEDIN_URL } from "@/constants/profile";
 import {
   MAX_NAME_LENGTH,
   MAX_EMAIL_LENGTH,
@@ -150,6 +151,22 @@ export function Contact() {
                 </div>
               </div>
             </div>
+
+            {LINKEDIN_URL && (
+              <div className="contact-detail">
+                <div className="contact-detail-icon">
+                  <LinkedInIcon />
+                </div>
+                <div>
+                  <div className="contact-detail-label">{t.contact.linkedinLabel}</div>
+                  <div className="contact-detail-value">
+                    <a href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer">
+                      LinkedIn
+                    </a>
+                  </div>
+                </div>
+              </div>
+            )}
 
             <div className="contact-detail">
               <div className="contact-detail-icon">

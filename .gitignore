@@ -19,6 +19,7 @@ dist
 *.jpeg
 *.md
 !README.md
+!docs/**/*.md
 DEVDASH.html
 FINxCODE.html
 *.html

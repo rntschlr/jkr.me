@@ -5,23 +5,24 @@ export const PROJECT_META: Array<{
   live?: string;
 }> = [
   {
-    img: "https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=600&h=300&q=80",
+    img: "/images/projects/travel-blog.webp",
     tags: ["Astro", "Tailwind CSS", "GitHub Pages"],
     repo: "https://github.com/rntschlr/travel-blog",
     live: "https://rntschlr.github.io/travel-blog/",
   },
   {
-    img: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=600&h=300&q=80",
-    tags: ["React 19", "CSS3", "localStorage"],
+    img: "/images/projects/hungary-tracker.webp",
+    tags: ["React 19", "Vite", "Vitest", "localStorage"],
     repo: "https://github.com/rntschlr/hungary-tracker",
+    live: "https://rntschlr.github.io/hungary-tracker/",
   },
   {
-    img: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=600&h=300&q=80",
-    tags: ["Python", "REST APIs", "CLI"],
+    img: "/images/projects/market-pulse.webp",
+    tags: ["Python", "REST APIs", "CLI", "pytest"],
     repo: "https://github.com/rntschlr/market-pulse",
   },
   {
-    img: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=600&h=300&q=80",
+    img: "/images/projects/jkr-me.webp",
     tags: ["React 19", "TypeScript", "Vite", "CSS"],
     repo: "https://github.com/rntschlr/jkr.me",
     live: "https://johnkrentschler.me",

@@ -1,4 +1,6 @@
 import { useLanguage } from "@/i18n/useLanguage";
+import { CV_URL } from "@/constants/profile";
+import { DownloadIcon } from "./icons";
 
 export function Hero() {
   const { t } = useLanguage();
@@ -46,6 +48,12 @@ export function Hero() {
                 </svg>
                 {t.hero.viewProjects}
               </a>
+              {CV_URL && (
+                <a className="btn btn-secondary" href={CV_URL} download>
+                  <DownloadIcon />
+                  {t.hero.downloadCv}
+                </a>
+              )}
             </div>
           </div>
 

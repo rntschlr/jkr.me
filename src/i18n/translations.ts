@@ -14,6 +14,7 @@ export interface Translation {
     desc: string;
     cta: string;
     viewProjects: string;
+    downloadCv: string;
     availabilityLabel: string;
     portraitAlt: string;
     deskTitle: string;
@@ -60,6 +61,7 @@ export interface Translation {
     detailsHeading: string;
     emailLabel: string;
     githubLabel: string;
+    linkedinLabel: string;
     locationLabel: string;
     locationValue: string;
     workRightsLabel: string;
@@ -110,6 +112,7 @@ export const translations: Record<"en" | "hu", Translation> = {
       desc: "I pair five years of finance judgment with hands-on infrastructure work \u2014 Linux, virtualisation, networking, and containers \u2014 for teams that need systems which stay up and data they can trust.",
       cta: "Start a Conversation",
       viewProjects: "See Work",
+      downloadCv: "Download CV",
       availabilityLabel: "Available now",
       portraitAlt: "Portrait of Jack Rentschler",
       deskTitle: "Operating Signals",
@@ -245,22 +248,22 @@ export const translations: Record<"en" | "hu", Translation> = {
         {
           title: "travel-blog",
           desc: "A self-run travel blog with a phone-friendly CMS, photo gallery, RSS feed, and email newsletter — built with Astro and Tailwind CSS, hosted free on GitHub Pages.",
-          alt: "Map and camera laid out for planning a journey",
+          alt: "Screenshot of the travel blog homepage",
         },
         {
           title: "hungary-tracker",
-          desc: "A React app for expats to track immigration documents needed for the Enter Hungary portal, with progress tracking and local persistence.",
-          alt: "",
+          desc: "A React app for expats tracking the documents the Enter Hungary portal requires \u2014 built while going through the process myself. Progress persists in the browser; live demo available.",
+          alt: "Screenshot of the immigration document tracker showing saved progress",
         },
         {
           title: "market-pulse",
-          desc: "A Python CLI tool that fetches live stock and crypto prices from a free API and displays color-coded changes in the terminal.",
-          alt: "",
+          desc: "A Python CLI that pulls live crypto prices from a free API and renders colour-coded 24-hour changes in the terminal. Unit-tested, with CI running the suite on every push.",
+          alt: "Terminal window showing market-pulse listing live crypto prices",
         },
         {
           title: "jkr.me",
           desc: "This portfolio site\u2014built with React 19, TypeScript, Vite, and Cloudflare Pages, with bilingual support and dark/light theming.",
-          alt: "",
+          alt: "Screenshot of this portfolio site",
         },
       ],
     },
@@ -281,6 +284,7 @@ export const translations: Record<"en" | "hu", Translation> = {
       detailsHeading: "Contact Details",
       emailLabel: "Email",
       githubLabel: "GitHub",
+      linkedinLabel: "LinkedIn",
       locationLabel: "Location",
       locationValue: "Budapest, Hungary",
       workRightsLabel: "Work status",
@@ -332,6 +336,7 @@ export const translations: Record<"en" | "hu", Translation> = {
       desc: "Öt év pénzügyi tapasztalatot párosítok gyakorlati infrastruktúra-munkával — Linux, virtualizáció, hálózatok és konténerek — olyan csapatoknak, amelyeknek stabilan működő rendszerekre és megbízható adatokra van szükségük.",
       cta: "Beszéljünk",
       viewProjects: "Munkák",
+      downloadCv: "Önéletrajz letöltése",
       availabilityLabel: "Elérhető vagyok",
       portraitAlt: "Jack Rentschler portréja",
       deskTitle: "Működési jelek",
@@ -467,22 +472,22 @@ export const translations: Record<"en" | "hu", Translation> = {
         {
           title: "travel-blog",
           desc: "Saját üzemeltetésű utazási blog telefonbarát tartalomkezelővel, fotógalériával, RSS-csatornával és e-mail hírlevéllel — Astro és Tailwind CSS alapokon, ingyenesen a GitHub Pages-en.",
-          alt: "Térkép és fényképezőgép egy utazás tervezéséhez",
+          alt: "Képernyőkép az utazási blog kezdőlapjáról",
         },
         {
           title: "hungary-tracker",
-          desc: "Egy React-alkalmazás külföldiek számára, amely nyomon követi az Enter Hungary portálhoz szükséges bevándorlási dokumentumokat, haladáskövetéssel és helyi adattárolással.",
-          alt: "",
+          desc: "React-alkalmazás külföldieknek, amely nyomon követi az Enter Hungary portálhoz szükséges dokumentumokat — miközben magam is végigmentem a folyamaton. A haladás a böngészőben tárolódik; élő demó elérhető.",
+          alt: "Screenshot of the immigration document tracker showing saved progress",
         },
         {
           title: "market-pulse",
-          desc: "Egy Python CLI-eszköz, amely ingyenes API-ból tölti be az élő részvény- és kriptovaluta-árakat, és színkóddal jelzi a változásokat a terminálon.",
-          alt: "",
+          desc: "Python CLI, amely ingyenes API-ból tölti be az élő kriptovaluta-árakat, és színkóddal jelzi a 24 órás változásokat a terminálon. Egységtesztekkel, minden push-nál lefutó CI-vel.",
+          alt: "Terminal window showing market-pulse listing live crypto prices",
         },
         {
           title: "jkr.me",
           desc: "Ez a portfólióoldal — React 19, TypeScript, Vite és Cloudflare Pages segítségével készült, kétnyelvű támogatással és sötét/világos témával.",
-          alt: "",
+          alt: "Screenshot of this portfolio site",
         },
       ],
     },
@@ -503,6 +508,7 @@ export const translations: Record<"en" | "hu", Translation> = {
       detailsHeading: "Elérhetőségek",
       emailLabel: "E-mail",
       githubLabel: "GitHub",
+      linkedinLabel: "LinkedIn",
       locationLabel: "Helyszín",
       locationValue: "Budapest, Magyarország",
       workRightsLabel: "Munkavállalási státusz",

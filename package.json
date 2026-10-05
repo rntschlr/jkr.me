@@ -8,13 +8,14 @@
     "build": "tsc --noEmit && vite build",
     "preview": "vite preview",
     "deploy": "npm run build && wrangler pages deploy dist --project-name=personalportfolio",
-    "check": "npm run format:check && npm run lint && npm run typecheck && npm run build && npm run security:audit",
+    "check": "npm run format:check && npm run lint && npm run typecheck && npm test && npm run build && npm run security:audit",
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "security:audit": "npm audit --omit=dev --audit-level=moderate"
+    "security:audit": "npm audit --audit-level=moderate",
+    "test": "node --experimental-strip-types --test tests/*.test.mjs"
   },
   "engines": {
     "node": ">=22"
@@ -24,7 +25,7 @@
     "react-dom": "^19.0.0"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20260516.1",
+    "@cloudflare/workers-types": "^5.20261005.1",
     "@eslint/js": "^9.0.0",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",

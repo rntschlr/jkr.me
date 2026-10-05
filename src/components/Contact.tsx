@@ -79,6 +79,7 @@ export function Contact() {
       try {
         const res = await fetch("/api/contact", {
           method: "POST",
+          signal: AbortSignal.timeout(12_000),
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ name, email, subject, message, website }),
         });
@@ -99,10 +100,9 @@ export function Contact() {
 
         setErrorState(data?.error ?? t.contact.errGeneric);
       } catch {
-        // Network error — open email client as fallback
-        openMailto(name, email, subject, message);
-        setState("mailto");
-        formRef.current?.reset();
+        // Delivery may have succeeded before the connection failed. Preserve the
+        // message and avoid opening another send automatically.
+        setErrorState(t.contact.errGeneric);
       }
     },
     [openMailto, setErrorState, t],

@@ -1,6 +1,6 @@
 # johnkrentschler.me
 
-Personal portfolio site for John Rentschler — developer, fintech, and networker.
+Personal portfolio site for John K. Rentschler — developer, fintech, and networker.
 
 **Live:** [johnkrentschler.me](https://johnkrentschler.me)
 
@@ -27,7 +27,7 @@ Personal portfolio site for John Rentschler — developer, fintech, and networke
 ```bash
 git clone https://github.com/rntschlr/jkr.me.git
 cd jkr.me
-npm install
+npm ci
 ```
 
 ### Environment Variables
@@ -111,7 +111,10 @@ Without this variable, the contact form falls back to a `mailto:` link automatic
 
 The contact form at `/api/contact` is a Cloudflare Pages Function that:
 
-- Validates required fields (name, email, message)
+- Validates required fields, types, lengths, and permitted origins
+- Caps the streamed body at 16 KiB and applies a request deadline
+- Applies a bounded per-isolate IP throttle and an email-provider timeout
+- Returns a request ID for error correlation without logging contact content
 - Rejects bots via a honeypot field
 - Sends email via [Resend](https://resend.com) if `RESEND_API_KEY` is set
 - Returns a `501` with `"fallback": "mailto"` if the key is absent — the frontend handles this gracefully
@@ -126,6 +129,12 @@ The in-code per-isolate throttle in `functions/api/contact.ts` is a
 defense-in-depth supplement, not a replacement. It only persists for the
 lifetime of a single Cloudflare Worker isolate and provides no
 cross-isolate protection; the dashboard rule is the authoritative gate.
+
+## Verification and operations
+
+`npm run check` runs formatting, lint, TypeScript, contact API regression tests,
+a production build, and an audit including build tooling. See
+[the operations guide](docs/operations.md) for release and recovery steps.
 
 ## License
 

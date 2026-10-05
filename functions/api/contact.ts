@@ -1,153 +1,173 @@
-interface ContactBody {
-  name?: string;
-  email?: string;
-  subject?: string;
-  message?: string;
-  website?: string;
-}
+import {
+  MAX_NAME_LENGTH,
+  MAX_EMAIL_LENGTH,
+  MAX_SUBJECT_LENGTH,
+  MAX_MESSAGE_LENGTH,
+} from "../../src/lib/validation.ts";
 
 interface Env {
   RESEND_API_KEY?: string;
 }
 
-const ALLOWED_ORIGINS = [
-  "https://johnkrentschler.me",
-  "https://www.johnkrentschler.me",
-  "http://localhost:5173",
-  "http://127.0.0.1:5173",
-  "http://localhost:8788",
-  "http://127.0.0.1:8788",
-];
-
-const MAX_BODY_SIZE = 16_384;
-// keep in sync with src/lib/validation.ts
-const MAX_NAME_LENGTH = 100;
-const MAX_EMAIL_LENGTH = 254;
-const MAX_SUBJECT_LENGTH = 150;
-const MAX_MESSAGE_LENGTH = 5000;
+const PUBLIC_ORIGINS = new Set(["https://johnkrentschler.me", "https://www.johnkrentschler.me"]);
+const LOOPBACK_HOSTS = new Set(["localhost", "127.0.0.1", "[::1]"]);
+const MAX_BODY_BYTES = 16_384;
+const WINDOW_MS = 60_000;
+const MAX_REQUESTS = 10;
+const MAX_CLIENTS = 5_000;
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-function getCorsOrigin(request: Request): string | null {
-  const origin = request.headers.get("Origin") ?? "";
-  return ALLOWED_ORIGINS.includes(origin) ? origin : null;
-}
-
-function isAllowedOrigin(request: Request): boolean {
+function allowedOrigin(request: Request): string | null {
   const origin = request.headers.get("Origin");
-  return !!origin && ALLOWED_ORIGINS.includes(origin);
-}
-
-function createJsonHeaders(request: Request): Record<string, string> {
-  const origin = getCorsOrigin(request);
-
-  return {
-    "Content-Type": "application/json",
-    "Cache-Control": "no-store",
-    "X-Content-Type-Options": "nosniff",
-    Vary: "Origin",
-    ...(origin ? { "Access-Control-Allow-Origin": origin } : {}),
-  };
-}
-
-function createOptionsHeaders(request: Request): Record<string, string> {
-  const origin = getCorsOrigin(request);
-
-  return {
-    "Access-Control-Allow-Methods": "POST, OPTIONS",
-    "Access-Control-Allow-Headers": "Content-Type",
-    "Access-Control-Max-Age": "86400",
-    Vary: "Origin",
-    ...(origin ? { "Access-Control-Allow-Origin": origin } : {}),
-  };
-}
-
-function normalizeField(value: unknown): string {
-  return typeof value === "string" ? value.trim() : "";
-}
-
-function exceedsMaxLength(value: string, maxLength: number): boolean {
-  return value.length > maxLength;
-}
-
-function sanitizeSubject(value: string): string {
-  return value.replace(/[\r\n]+/g, " ").trim();
-}
-
-export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
-  const headers = createJsonHeaders(request);
-
+  if (!origin) return null;
+  if (PUBLIC_ORIGINS.has(origin)) return origin;
+  // Development origins must never authorize calls to the production API.
+  const target = new URL(request.url);
   try {
-    if (!isAllowedOrigin(request)) {
-      return new Response(JSON.stringify({ error: "Origin not allowed" }), {
-        status: 403,
-        headers,
-      });
+    const source = new URL(origin);
+    return LOOPBACK_HOSTS.has(target.hostname) &&
+      LOOPBACK_HOSTS.has(source.hostname) &&
+      source.protocol === target.protocol
+      ? origin
+      : null;
+  } catch {
+    return null;
+  }
+}
+
+class RequestError extends Error {
+  status: number;
+  constructor(status: number, message: string) {
+    super(message);
+    this.status = status;
+  }
+}
+
+/** Bound the stream before buffering it, including bodies without Content-Length. */
+async function readBody(request: Request): Promise<Record<string, unknown>> {
+  const length = request.headers.get("Content-Length");
+  if (length && (!/^\d+$/.test(length) || Number(length) > MAX_BODY_BYTES)) {
+    throw new RequestError(413, "Request body is too large");
+  }
+  const reader = request.body?.getReader();
+  if (!reader) throw new RequestError(400, "Invalid request");
+  const chunks: Uint8Array[] = [];
+  let size = 0;
+  let timedOut = false;
+  const timer = setTimeout(() => {
+    timedOut = true;
+    void reader.cancel().catch(() => {});
+  }, 5_000);
+  try {
+    while (true) {
+      const { value, done } = await reader.read();
+      if (timedOut) throw new RequestError(408, "Request timed out");
+      if (done) break;
+      size += value.byteLength;
+      if (size > MAX_BODY_BYTES) {
+        void reader.cancel().catch(() => {});
+        throw new RequestError(413, "Request body is too large");
+      }
+      chunks.push(value);
+    }
+    const bytes = new Uint8Array(size);
+    let offset = 0;
+    for (const chunk of chunks) {
+      bytes.set(chunk, offset);
+      offset += chunk.byteLength;
+    }
+    const parsed: unknown = JSON.parse(new TextDecoder("utf-8", { fatal: true }).decode(bytes));
+    if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) {
+      throw new RequestError(400, "Invalid request");
+    }
+    return parsed as Record<string, unknown>;
+  } finally {
+    clearTimeout(timer);
+    reader.releaseLock();
+  }
+}
+
+/** Isolate-local abuse protection; production also needs a Cloudflare edge rule. */
+export function createContactHandler(fetchEmail: typeof fetch = fetch, now = Date.now) {
+  const clients = new Map<string, { count: number; expires: number }>();
+  return async ({ request, env }: { request: Request; env: Env }): Promise<Response> => {
+    const origin = allowedOrigin(request);
+    const requestId = crypto.randomUUID();
+    const headers: Record<string, string> = {
+      "Content-Type": "application/json",
+      "Cache-Control": "no-store",
+      "X-Content-Type-Options": "nosniff",
+      "X-Request-ID": requestId,
+      Vary: "Origin",
+      ...(origin ? { "Access-Control-Allow-Origin": origin } : {}),
+    };
+    const reply = (status: number, body: object, extra: Record<string, string> = {}) =>
+      new Response(JSON.stringify(body), { status, headers: { ...headers, ...extra } });
+    if (!origin) return reply(403, { error: "Origin not allowed" });
+    const contentType = request.headers.get("Content-Type")?.split(";")[0]?.trim().toLowerCase();
+    if (contentType !== "application/json")
+      return reply(415, { error: "Expected application/json" });
+
+    const time = now();
+    for (const [key, client] of clients) if (client.expires <= time) clients.delete(key);
+    // CF-Connecting-IP is supplied by Cloudflare. Never trust X-Forwarded-For.
+    const key = request.headers.get("CF-Connecting-IP") ?? "unknown";
+    let client = clients.get(key);
+    if (!client && clients.size >= MAX_CLIENTS) {
+      return reply(429, { error: "Please try again later" }, { "Retry-After": "60" });
+    }
+    if (!client) {
+      client = { count: 0, expires: time + WINDOW_MS };
+      clients.set(key, client);
+    }
+    client.count += 1;
+    if (client.count > MAX_REQUESTS) {
+      return reply(
+        429,
+        { error: "Please try again later" },
+        {
+          "Retry-After": String(Math.max(1, Math.ceil((client.expires - time) / 1000))),
+        },
+      );
     }
 
-    const contentType = request.headers.get("Content-Type")?.toLowerCase() ?? "";
-    if (!contentType.includes("application/json")) {
-      return new Response(JSON.stringify({ error: "Expected application/json" }), {
-        status: 415,
-        headers,
+    let body: Record<string, unknown>;
+    try {
+      body = await readBody(request);
+    } catch (error) {
+      return reply(error instanceof RequestError ? error.status : 400, {
+        error: error instanceof RequestError ? error.message : "Invalid request",
       });
     }
-
-    const rawBody = await request.text();
-    if (rawBody.length > MAX_BODY_SIZE) {
-      return new Response(JSON.stringify({ error: "Request body is too large" }), {
-        status: 413,
-        headers,
-      });
+    for (const field of ["name", "email", "subject", "message", "website"]) {
+      if (body[field] !== undefined && typeof body[field] !== "string") {
+        return reply(400, { error: "Invalid field type" });
+      }
     }
-
-    const body = JSON.parse(rawBody) as ContactBody;
-    const name = normalizeField(body.name);
-    const email = normalizeField(body.email);
-    const rawSubject = normalizeField(body.subject);
-    const message = normalizeField(body.message);
-    const website = normalizeField(body.website);
-
-    // Honeypot — if filled, it's a bot
-    if (website) {
-      // Return 200 so bots think it worked
-      return new Response(JSON.stringify({ success: true }), {
-        status: 200,
-        headers,
-      });
-    }
-
-    if (!name || !email || !message) {
-      return new Response(JSON.stringify({ error: "All fields are required" }), {
-        status: 400,
-        headers,
-      });
-    }
-
+    const field = (key: string) => (typeof body[key] === "string" ? body[key].trim() : "");
+    const name = field("name");
+    const email = field("email");
+    const rawSubject = field("subject");
+    const message = field("message");
+    if (field("website")) return reply(200, { success: true });
+    if (!name || !email || !message) return reply(400, { error: "All fields are required" });
     if (
-      exceedsMaxLength(name, MAX_NAME_LENGTH) ||
-      exceedsMaxLength(email, MAX_EMAIL_LENGTH) ||
-      exceedsMaxLength(rawSubject, MAX_SUBJECT_LENGTH) ||
-      exceedsMaxLength(message, MAX_MESSAGE_LENGTH)
+      name.length > MAX_NAME_LENGTH ||
+      email.length > MAX_EMAIL_LENGTH ||
+      rawSubject.length > MAX_SUBJECT_LENGTH ||
+      message.length > MAX_MESSAGE_LENGTH
     ) {
-      return new Response(JSON.stringify({ error: "Message is too long" }), {
-        status: 400,
-        headers,
-      });
+      return reply(400, { error: "Message is too long" });
     }
-
-    if (!EMAIL_PATTERN.test(email)) {
-      return new Response(JSON.stringify({ error: "Invalid email" }), {
-        status: 400,
-        headers,
-      });
+    if (!EMAIL_PATTERN.test(email)) return reply(400, { error: "Invalid email" });
+    if (!env.RESEND_API_KEY?.trim()) {
+      return reply(501, { error: "Email service not configured", fallback: "mailto" });
     }
-
-    const subject = sanitizeSubject(rawSubject);
-
-    // If an email service is configured, deliver the message
-    if (env.RESEND_API_KEY) {
-      const res = await fetch("https://api.resend.com/emails", {
+    const subject = (rawSubject || `Contact from ${name}`).replace(/[\r\n]+/g, " ").trim();
+    try {
+      const response = await fetchEmail("https://api.resend.com/emails", {
         method: "POST",
+        signal: AbortSignal.timeout(8_000),
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${env.RESEND_API_KEY}`,
@@ -155,54 +175,44 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
         body: JSON.stringify({
           from: "contact@johnkrentschler.me",
           to: "johnkrentschler@icloud.com",
-          subject: subject || sanitizeSubject(`Contact from ${name}`),
-          text: `Name: ${name}\nEmail: ${email}\nSubject: ${subject || "(none)"}\n\n${message}`,
+          subject,
+          text: `Name: ${name}\nEmail: ${email}\nSubject: ${rawSubject || "(none)"}\n\n${message}`,
           reply_to: email,
         }),
       });
-
-      if (!res.ok) {
-        console.error("Resend API error", { status: res.status });
-        return new Response(JSON.stringify({ error: "Failed to send" }), {
-          status: 502,
-          headers,
-        });
+      // Do not log message bodies, email addresses, or provider response content.
+      if (!response.ok) {
+        console.error("contact.delivery_failed", { requestId, status: response.status });
+        await response.body?.cancel();
+        return reply(502, { error: "Failed to send" });
       }
-
-      return new Response(JSON.stringify({ success: true }), {
-        status: 200,
-        headers,
-      });
+      await response.body?.cancel();
+      return reply(200, { success: true });
+    } catch (error) {
+      const timeout = error instanceof Error && ["TimeoutError", "AbortError"].includes(error.name);
+      console.error("contact.delivery_unavailable", { requestId, timeout });
+      return reply(timeout ? 504 : 502, { error: "Email service is temporarily unavailable" });
     }
+  };
+}
 
-    // No email service configured — tell the client to fall back to mailto
-    console.log("Contact form received without email service configured", {
-      timestamp: new Date().toISOString(),
-    });
-
-    return new Response(
-      JSON.stringify({ error: "Email service not configured", fallback: "mailto" }),
-      { status: 501, headers },
-    );
-  } catch {
-    return new Response(JSON.stringify({ error: "Invalid request" }), {
-      status: 400,
-      headers,
-    });
-  }
-};
-
-// Handle CORS preflight
+export const onRequestPost: PagesFunction<Env> = createContactHandler();
 export const onRequestOptions: PagesFunction = async ({ request }) => {
-  if (!isAllowedOrigin(request)) {
-    return new Response(null, {
-      status: 403,
-      headers: createOptionsHeaders(request),
-    });
-  }
-
+  const origin = allowedOrigin(request);
   return new Response(null, {
-    status: 204,
-    headers: createOptionsHeaders(request),
+    status: origin ? 204 : 403,
+    headers: {
+      "Cache-Control": "no-store",
+      "Access-Control-Allow-Methods": "POST, OPTIONS",
+      "Access-Control-Allow-Headers": "Content-Type",
+      "Access-Control-Max-Age": "86400",
+      Vary: "Origin",
+      ...(origin ? { "Access-Control-Allow-Origin": origin } : {}),
+    },
   });
 };
+export const onRequest: PagesFunction = async () =>
+  new Response(null, {
+    status: 405,
+    headers: { Allow: "POST, OPTIONS", "Cache-Control": "no-store" },
+  });

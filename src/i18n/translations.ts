@@ -246,19 +246,14 @@ export const translations: Record<"en" | "hu", Translation> = {
       viewGithub: "View GitHub Profile",
       items: [
         {
-          title: "travel-blog",
-          desc: "A self-run travel blog with a phone-friendly CMS, photo gallery, RSS feed, and email newsletter — built with Astro and Tailwind CSS, hosted free on GitHub Pages.",
-          alt: "Screenshot of the travel blog homepage",
+          title: "Tinta",
+          desc: "A practical grammar notebook for English speakers learning Hungarian: the alphabet, vowel harmony, eighteen noun cases, verb conjugations, and everyday phrases, with interactive workbenches and practice drills. Built with React and TypeScript, hosted on Cloudflare Pages. Progress stays in the browser.",
+          alt: "Screenshot of the Tinta homepage, a Hungarian grammar notebook",
         },
         {
           title: "hungary-tracker",
           desc: "A React app for expats tracking the documents the Enter Hungary portal requires \u2014 built while going through the process myself. Progress persists in the browser; live demo available.",
           alt: "Screenshot of the immigration document tracker showing saved progress",
-        },
-        {
-          title: "market-pulse",
-          desc: "A Python CLI that pulls live crypto prices from a free API and renders colour-coded 24-hour changes in the terminal. Unit-tested, with CI running the suite on every push.",
-          alt: "Terminal window showing market-pulse listing live crypto prices",
         },
         {
           title: "jkr.me",
@@ -470,19 +465,14 @@ export const translations: Record<"en" | "hu", Translation> = {
       viewGithub: "GitHub-profil megtekintése",
       items: [
         {
-          title: "travel-blog",
-          desc: "Saját üzemeltetésű utazási blog telefonbarát tartalomkezelővel, fotógalériával, RSS-csatornával és e-mail hírlevéllel — Astro és Tailwind CSS alapokon, ingyenesen a GitHub Pages-en.",
-          alt: "Képernyőkép az utazási blog kezdőlapjáról",
+          title: "Tinta",
+          desc: "Gyakorlati magyar nyelvtani jegyzet angolul beszélőknek — ábécé, hangrendi illeszkedés, tizennyolc névszói eset, igeragozás és mindennapi kifejezések —, interaktív munkafelületekkel és gyakorlófeladatokkal. React és TypeScript alapokon készült, a Cloudflare Pages-en érhető el; a haladás a böngészőben tárolódik.",
+          alt: "Képernyőkép a Tinta kezdőlapjáról, egy magyar nyelvtani jegyzetről",
         },
         {
           title: "hungary-tracker",
           desc: "React-alkalmazás külföldieknek, amely nyomon követi az Enter Hungary portálhoz szükséges dokumentumokat — miközben magam is végigmentem a folyamaton. A haladás a böngészőben tárolódik; élő demó elérhető.",
           alt: "Screenshot of the immigration document tracker showing saved progress",
-        },
-        {
-          title: "market-pulse",
-          desc: "Python CLI, amely ingyenes API-ból tölti be az élő kriptovaluta-árakat, és színkóddal jelzi a 24 órás változásokat a terminálon. Egységtesztekkel, minden push-nál lefutó CI-vel.",
-          alt: "Terminal window showing market-pulse listing live crypto prices",
         },
         {
           title: "jkr.me",
